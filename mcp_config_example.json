@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "glasses-finder": {
+      "command": "python",
+      "args": ["/Users/aafuture/Documents/AI Learning/Glasses Project/glasses_mcp_server.py"],
+      "env": {},
+      "description": "Affordable glasses scraper for D.C. families - helps find budget-friendly eyewear options"
+    }
+  }
+}
