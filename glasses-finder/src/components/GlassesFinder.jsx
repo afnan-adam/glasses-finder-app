@@ -335,105 +335,128 @@ const GlassesFinder = () => {
   );
 
   const EligibilityForm = () => (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 flex items-center justify-center p-4">
-      <div className="max-w-lg w-full bg-white rounded-3xl p-8 shadow-2xl clearsight-form-panel">
-        <div className="text-center mb-8">
-          <Eye className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Let’s find your path to clearer vision</h2>
-          <p className="text-gray-600">A few details will help us explore affordable options for your household.</p>
+    <main className="min-h-screen clearsight-form-page">
+      <header className="clearsight-form-nav">
+        <a className="clearsight-brand" href="#home" onClick={(e) => { e.preventDefault(); setCurrentStep('welcome'); }}>
+          <span className="clearsight-brand-mark"><Eye size={21} /></span>
+          <span>ClearSight <strong>D.C.</strong></span>
+        </a>
+        <button type="button" className="clearsight-back-link" onClick={() => setCurrentStep('welcome')}>
+          ← Back to overview
+        </button>
+      </header>
+
+      <section className="clearsight-form-layout">
+        <div className="clearsight-form-intro">
+          <span className="clearsight-eyebrow">LET'S GET STARTED</span>
+          <h1>A few details help us point you in the right direction.</h1>
+          <p>
+            Answer four quick questions so we can show you D.C. vision resources
+            and eyewear options to explore.
+          </p>
+          <div className="clearsight-form-progress" aria-label="Questionnaire progress">
+            <span className="clearsight-progress-active"></span>
+            <span></span><span></span><span></span>
+          </div>
+          <small>Four questions · Your answers shape the results</small>
+          <div className="clearsight-privacy-note">
+            <Info size={17} />
+            <span>Your answers are used to shape the results shown in this session.</span>
+          </div>
         </div>
-        
-        <form onSubmit={handleFormSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              <Users className="w-4 h-4 inline mr-2" />
-              Household Size
-            </label>
-            <select
-              value={formData.householdSize}
-              onChange={(e) => setFormData({...formData, householdSize: e.target.value})}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors"
-              required
-            >
-              <option value="">Select household size</option>
-              {[1,2,3,4,5,6,7,8].map(size => (
-                <option key={size} value={size}>{size} person{size > 1 ? 's' : ''}</option>
-              ))}
-            </select>
+
+        <div className="clearsight-form-card">
+          <div className="clearsight-form-card-heading">
+            <span className="clearsight-form-step">01 — HOUSEHOLD</span>
+            <h2>Tell us about your household</h2>
+            <p>These details help us estimate which assistance resources may be relevant.</p>
           </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              <DollarSign className="w-4 h-4 inline mr-2" />
-              Annual Household Income
-            </label>
-            <select
-              value={formData.income}
-              onChange={(e) => setFormData({...formData, income: e.target.value})}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors text-lg"
-              required
-            >
-              <option value="">Select income range</option>
-              {incomeRanges.map((range, index) => (
-                <option key={index} value={range.value}>{range.label}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              <MapPin className="w-4 h-4 inline mr-2" />
-              D.C. ZIP Code
-            </label>
-            <select
-              value={formData.zipCode}
-              onChange={(e) => setFormData({...formData, zipCode: e.target.value})}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors text-lg"
-              required
-            >
-              <option value="">Select your ZIP code</option>
-              {dcZipCodes.map((zip) => (
-                <option key={zip} value={zip}>{zip}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              <DollarSign className="w-4 h-4 inline mr-2" />
-              Glasses Budget
-            </label>
-            <select
-              value={formData.budget}
-              onChange={(e) => setFormData({...formData, budget: e.target.value})}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors text-lg"
-              required
-            >
-              <option value="">Select your budget range</option>
-              {budgetRanges.map((range, index) => (
-                <option key={index} value={range.value}>{range.label}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="flex space-x-4 mt-8">
-            <button
-              type="button"
-              onClick={() => setCurrentStep('welcome')}
-              className="flex-1 bg-gray-100 text-gray-600 py-4 px-6 rounded-xl font-semibold hover:bg-gray-200 transition-colors"
-            >
-              Back
-            </button>
-            <button
-              type="submit"
-              className="flex-1 bg-purple-600 text-white py-4 px-6 rounded-xl font-semibold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              Find Glasses
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+
+          <form onSubmit={handleFormSubmit}>
+            <div className="clearsight-field">
+              <label htmlFor="household-size"><Users size={17} /> Household size</label>
+              <select
+                id="household-size"
+                value={formData.householdSize}
+                onChange={(e) => setFormData({...formData, householdSize: e.target.value})}
+                required
+              >
+                <option value="">Select household size</option>
+                {[1,2,3,4,5,6,7,8].map(size => (
+                  <option key={size} value={size}>{size} person{size > 1 ? 's' : ''}</option>
+                ))}
+              </select>
+              <small>Include everyone in your household.</small>
+            </div>
+
+            <div className="clearsight-field">
+              <label htmlFor="annual-income"><DollarSign size={17} /> Annual household income</label>
+              <select
+                id="annual-income"
+                value={formData.income}
+                onChange={(e) => setFormData({...formData, income: e.target.value})}
+                required
+              >
+                <option value="">Choose an income range</option>
+                {incomeRanges.map((range, index) => (
+                  <option key={index} value={range.value}>{range.label}</option>
+                ))}
+              </select>
+              <small>Select the range closest to your household's yearly income.</small>
+            </div>
+
+            <div className="clearsight-form-divider"></div>
+            <div className="clearsight-form-card-heading clearsight-form-secondary-heading">
+              <span className="clearsight-form-step">02 — LOCATION & BUDGET</span>
+              <h2>What are you looking for?</h2>
+              <p>We'll use these details to tailor the local resources and frames you see.</p>
+            </div>
+
+            <div className="clearsight-field">
+              <label htmlFor="dc-zip"><MapPin size={17} /> D.C. ZIP code</label>
+              <select
+                id="dc-zip"
+                value={formData.zipCode}
+                onChange={(e) => setFormData({...formData, zipCode: e.target.value})}
+                required
+              >
+                <option value="">Choose your ZIP code</option>
+                {dcZipCodes.map(zip => <option key={zip} value={zip}>{zip}</option>)}
+              </select>
+              <small>Choose the D.C. ZIP code where you live.</small>
+            </div>
+
+            <div className="clearsight-field">
+              <label htmlFor="glasses-budget"><DollarSign size={17} /> Budget for glasses</label>
+              <select
+                id="glasses-budget"
+                value={formData.budget}
+                onChange={(e) => setFormData({...formData, budget: e.target.value})}
+                required
+              >
+                <option value="">Choose your budget</option>
+                {budgetRanges.map((range, index) => (
+                  <option key={index} value={range.value}>{range.label}</option>
+                ))}
+              </select>
+              <small>What would you feel comfortable spending on frames?</small>
+            </div>
+
+            <div className="clearsight-form-actions">
+              <button type="button" className="clearsight-secondary-button" onClick={() => setCurrentStep('welcome')}>
+                Back
+              </button>
+              <button type="submit" className="clearsight-primary-cta">
+                See my options <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+          <p className="clearsight-form-footnote">
+            ClearSight provides informational guidance. Programs and coverage must be confirmed with the provider.
+          </p>
+        </div>
+      </section>
+    </main>
   );
 
   const ResultsScreen = () => {
