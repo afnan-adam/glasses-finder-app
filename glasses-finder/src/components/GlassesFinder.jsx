@@ -265,38 +265,73 @@ const GlassesFinder = () => {
     }
   };
 
+  // Landing page: explain the product before asking users for information.
   const WelcomeScreen = () => (
-    <div className="min-h-screen bg-gradient-to-br from-violet-700 via-purple-600 to-indigo-900 flex items-center justify-center p-4 clearsight-shell">
-      <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center border border-white/20 shadow-2xl clearsight-welcome-panel">
-        <div className="mb-8">
-          <Eye className="w-16 h-16 text-white mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-white mb-2">ClearSight D.C.</h1>
-          <p className="text-white/80 text-lg">Find affordable glasses that fit your budget</p>
+    <main className="min-h-screen clearsight-landing">
+      <header className="clearsight-nav">
+        <a className="clearsight-brand" href="#home" aria-label="ClearSight DC home">
+          <span className="clearsight-brand-mark"><Eye size={21} /></span>
+          <span>ClearSight <strong>D.C.</strong></span>
+        </a>
+        <span className="clearsight-location"><MapPin size={15} /> Washington, D.C.</span>
+      </header>
+
+      <section className="clearsight-hero" id="home">
+        <div className="clearsight-hero-copy">
+          <span className="clearsight-eyebrow">A clearer path to affordable eyewear</span>
+          <h1>Good vision should fit your <em>life</em> and your budget.</h1>
+          <p className="clearsight-hero-description">
+            Explore eyewear options and learn about vision assistance resources
+            in the D.C. area. Start with a few details about your household.
+          </p>
+          <div className="clearsight-hero-actions">
+            <button
+              onClick={() => setCurrentStep('form')}
+              className="clearsight-primary-cta"
+            >
+              Explore my options <span aria-hidden="true">→</span>
+            </button>
+            <span className="clearsight-time-note">A short, guided questionnaire</span>
+          </div>
+          <div className="clearsight-value-points">
+            <div><Users size={18} /><span>Household-aware guidance</span></div>
+            <div><DollarSign size={18} /><span>Options across budgets</span></div>
+            <div><MapPin size={18} /><span>D.C.-focused resources</span></div>
+          </div>
         </div>
-        
-        <div className="space-y-4 mb-8 text-white/70">
-          <div className="flex items-center justify-center space-x-2">
-            <MapPin className="w-5 h-5" />
-            <span>Washington D.C. Area</span>
+
+        <aside className="clearsight-how-card" aria-label="How ClearSight works">
+          <div className="clearsight-card-topline">
+            <span className="clearsight-card-icon"><Eye size={22} /></span>
+            <span className="clearsight-card-kicker">YOUR NEXT STEPS</span>
           </div>
-          <div className="flex items-center justify-center space-x-2">
-            <DollarSign className="w-5 h-5" />
-            <span>Budget-Friendly Options</span>
-          </div>
-          <div className="flex items-center justify-center space-x-2">
-            <Users className="w-5 h-5" />
-            <span>Personalized Recommendations</span>
-          </div>
-        </div>
-        
-        <button
-          onClick={() => setCurrentStep('form')}
-          className="w-full bg-white text-purple-600 py-4 px-6 rounded-2xl font-semibold text-lg hover:bg-white/90 transform hover:scale-105 transition-all duration-300 shadow-lg"
-        >
-          Start Finding Glasses
-        </button>
-      </div>
-    </div>
+          <h2>Finding a place to start can be easier.</h2>
+          <p className="clearsight-card-intro">ClearSight helps you explore three things:</p>
+          <ol className="clearsight-steps">
+            <li>
+              <span className="clearsight-step-number">01</span>
+              <span><strong>Share a little context</strong><small>Household size, income range, location and budget.</small></span>
+            </li>
+            <li>
+              <span className="clearsight-step-number">02</span>
+              <span><strong>Review possible resources</strong><small>See assistance information to investigate further.</small></span>
+            </li>
+            <li>
+              <span className="clearsight-step-number">03</span>
+              <span><strong>Explore eyewear options</strong><small>Compare frames and find options to research.</small></span>
+            </li>
+          </ol>
+          <p className="clearsight-disclaimer">
+            Information is a starting point, not a guarantee of program eligibility or coverage.
+          </p>
+        </aside>
+      </section>
+
+      <footer className="clearsight-landing-footer">
+        <span>ClearSight D.C.</span>
+        <span>Helping D.C. residents explore affordable vision options.</span>
+      </footer>
+    </main>
   );
 
   const EligibilityForm = () => (
