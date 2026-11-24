@@ -306,9 +306,9 @@ const GlassesFinder = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">{t('Vision support for K–12 students', 'Apoyo visual para estudiantes K–12')}</h1>
             <p className="text-slate-600 mt-3 leading-relaxed">{t('Explore school-based programs and services that may help children access eye exams and prescription glasses at no cost. Access rules vary by program.', 'Explora programas escolares y servicios que pueden ayudar a los niños a recibir exámenes de la vista y anteojos recetados sin costo. Los requisitos varían según el programa.')}</p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 mt-8">
-            {resources.map((resource) => (
-              <article key={resource.name} className="rounded-2xl border border-purple-200 bg-white p-6 shadow-sm">
+          <div className="clearsight-student-carousel mt-8" aria-label={t('Student vision resources', 'Recursos de salud visual para estudiantes')}>
+            {resources.map((resource, index) => (
+              <article key={resource.name} className="clearsight-student-resource-card" style={{ animationDelay: `${index * 110}ms` }}>
                 <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
                 <h2 className="mt-2 text-xl font-semibold text-slate-900">{resource.name}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.description}</p>
@@ -583,33 +583,7 @@ const GlassesFinder = () => {
           </section>
         )}
 
-        {eligibilityData?.resources?.some(resource => resource.audience === 'K–12 students') && (
-          <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="student-vision-heading">
-            <div className="mb-5">
-              <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">For families and caregivers</p>
-              <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Free vision support for K–12 students', 'Apoyo visual gratuito para estudiantes K–12')}</h2>
-              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Some services are arranged through a participating school or nonprofit; others connect families with participating eye doctors. Check the access steps before contacting a provider.
-              </p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {eligibilityData.resources.filter(resource => resource.audience === 'K–12 students').map((resource) => (
-                <article key={resource.name} className="rounded-xl border border-purple-200 bg-white p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-slate-900">{resource.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
-                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
-                    {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Program details ↗</a>}
-                  </div>
-                  <p className="mt-3 text-xs text-slate-400">Information checked November 24, 2026</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
+}
 
         {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students') && (
           <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
