@@ -679,3 +679,16 @@ a { text-underline-offset: 3px; }
   .clearsight-student-resource-card:hover,
   .clearsight-pathway-button:hover { transform: none; }
 }
+
+
+/* Keep the results banner's purple gradient identical in English and Spanish. */
+.clearsight-results-gradient {
+  background: linear-gradient(112deg, #35145b 0%, #4a1d78 52%, #5b2392 100%);
+}
+.clearsight-results-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 88% 12%, rgba(196, 164, 255, .16), transparent 34%);
+}
