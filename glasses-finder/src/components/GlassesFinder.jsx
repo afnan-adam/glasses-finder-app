@@ -592,20 +592,13 @@ const GlassesFinder = () => {
                     <p className="text-gray-600 text-sm mb-4">{glasses.features}</p>
                     
                     <div className="mt-4">
-                      {glasses.site === 'Warby Parker' && (
-                        <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
-                          <p className="text-xs text-blue-700 font-medium">
-                            💡 Tip: Click the first unsponsored link to see the frame in the Google Search results
-                          </p>
-                        </div>
-                      )}
-                      <a 
-                        href={getSearchUrls(glasses).modelSearch} 
-                        target="_blank" 
+                      <a
+                        href={glasses.url}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="block w-full bg-slate-800 text-white py-3 px-4 rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors text-center tracking-wide"
                       >
-                        Search Frame
+                        View at {glasses.site}
                       </a>
                     </div>
                   </div>
