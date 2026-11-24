@@ -61,37 +61,6 @@ const GlassesFinder = () => {
     return `https://via.placeholder.com/400x300/e5e7eb/374151?text=${encodeURIComponent(displayText)}`;
   };
 
-  // Check if glasses qualify for assistance programs
-  const getAssistanceProgram = (price, site) => {
-    if (price <= 35) {
-      return {
-        name: "Income-Based Pricing",
-        description: "Contact store directly with income documentation for verification",
-        detailedMessage: "This reduced pricing requires income verification. Please contact the optical store directly and provide documentation of your current household income to confirm eligibility for this assistance pricing.",
-        color: "bg-emerald-50 text-emerald-800 border-emerald-200"
-      };
-    }
-    if (price <= 50) {
-      // Warby Parker only accepts UCH Spectera/Medicare Advantage, not general Medicaid
-      if (site === 'Warby Parker') {
-        return {
-          name: "UCH Spectera/Medicare Advantage",
-          description: "Contact Warby Parker with UCH Spectera or Medicare Advantage documentation", 
-          detailedMessage: "Warby Parker accepts UCH Spectera and Medicare Advantage plans. Please contact Warby Parker directly with your current UCH Spectera or Medicare Advantage card to verify coverage eligibility.",
-          color: "bg-purple-50 text-purple-800 border-purple-200"
-        };
-      } else {
-        return {
-          name: "Medicaid Coverage",
-          description: "Contact store with Medicaid documentation for coverage verification", 
-          detailedMessage: "This pricing is available through Medicaid vision benefits. Please contact the optical store directly with your current Medicaid card and coverage documentation to verify eligibility.",
-          color: "bg-blue-50 text-blue-800 border-blue-200"
-        };
-      }
-    }
-    return null;
-  };
-
   // Generate search URLs for glasses
   const getSearchUrls = (glasses) => {
     // Special case for Felix - search for specific colorway
@@ -591,50 +560,23 @@ const GlassesFinder = () => {
           )}
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredGlasses.map((glasses, index) => {
-              const assistanceProgram = getAssistanceProgram(glasses.numeric_price, glasses.site);
-              return (
-                <div key={index} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 hover:border-purple-200 transform hover:scale-105">
+            {filteredGlasses.map((glasses, index) => (
+                <div key={glasses.id || index} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 hover:border-purple-200">
                   <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-                    <GlassesImageCard
-                      glasses={glasses}
-                      onImageGenerated={(glassesObj, url) => {
-                        const cacheKey = `${glassesObj.name}-${glassesObj.frame_style}-${glassesObj.material}`;
-                        setGeneratedImages(prev => new Map(prev.set(cacheKey, url)));
-                      }}
-                      className="h-full"
-                    />
-                    {assistanceProgram && (
-                      <div className={`absolute top-2 left-2 px-2 py-1 rounded-lg text-xs font-semibold ${assistanceProgram.color} z-10`}>
-                        {assistanceProgram.name}
-                      </div>
-                    )}
+                    <GlassesImageCard glasses={glasses} className="h-full" />
                   </div>
-                  
+
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-3">
                       <h3 className="text-xl font-bold text-gray-800">{glasses.name}</h3>
                       <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        ${glasses.numeric_price}
+                        From ${glasses.numeric_price}
                       </span>
                     </div>
+                    <p className="mb-4 text-xs text-gray-500">
+                      Starting price for single-vision lenses; upgrades and prescription options may cost more.
+                    </p>
 
-                    {assistanceProgram && (
-                      <div className={`mb-4 p-4 rounded-lg ${assistanceProgram.color} border`}>
-                        <div className="flex items-start gap-2 mb-2">
-                          <div className="flex-shrink-0 w-4 h-4 mt-0.5">
-                            <svg className="w-4 h-4 text-current opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="text-sm font-medium mb-1">{assistanceProgram.name}</h4>
-                            <p className="text-xs leading-relaxed opacity-90">{assistanceProgram.detailedMessage}</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Style:</span>
@@ -671,8 +613,7 @@ const GlassesFinder = () => {
                     </div>
                   </div>
                 </div>
-              );
-            })}
+            ))}
           </div>
           
           {filteredGlasses.length === 0 && (
