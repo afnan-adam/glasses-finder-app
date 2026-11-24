@@ -570,17 +570,45 @@ const GlassesFinder = () => {
           </section>
         )}
 
-        {eligibilityData?.resources?.length > 0 && (
-          <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
+        {eligibilityData?.resources?.some(resource => resource.audience === 'K–12 students') && (
+          <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="student-vision-heading">
             <div className="mb-5">
-              <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">Verified resource directory</p>
-              <h2 id="vision-resources-heading" className="mt-1 text-2xl font-bold text-slate-900">Vision care and eyewear assistance in D.C.</h2>
+              <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">For families and caregivers</p>
+              <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">Free vision support for K–12 students</h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-                These are real programs and services with published information. They are not a determination that you qualify. Contact each provider to confirm current availability, costs, network participation and any required authorization.
+                Some services are arranged through a participating school or nonprofit; others connect families with participating eye doctors. Check the access steps before contacting a provider.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              {eligibilityData.resources.map((resource) => (
+              {eligibilityData.resources.filter(resource => resource.audience === 'K–12 students').map((resource) => (
+                <article key={resource.name} className="rounded-xl border border-purple-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
+                  <h3 className="mt-2 text-lg font-semibold text-slate-900">{resource.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
+                  <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
+                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
+                    {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Program details ↗</a>}
+                  </div>
+                  <p className="mt-3 text-xs text-slate-400">Information checked November 24, 2026</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students') && (
+          <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
+            <div className="mb-5">
+              <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">Additional resources</p>
+              <h2 id="vision-resources-heading" className="mt-1 text-2xl font-bold text-slate-900">Vision care and eyewear assistance in D.C.</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+                These services have different coverage and access requirements. They are not a determination that you qualify. Contact each provider to confirm current availability, costs, network participation and any required authorization.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {eligibilityData.resources.filter(resource => resource.audience !== 'K–12 students').map((resource) => (
                 <article key={resource.name} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                   <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
                   <h3 className="mt-2 text-lg font-semibold text-slate-900">{resource.name}</h3>
@@ -588,8 +616,8 @@ const GlassesFinder = () => {
                   <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
                   {resource.address && <p className="mt-3 text-sm text-slate-700">{resource.address}</p>}
                   <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={`tel:${resource.phone.replace(/[^0-9+]/g, '')}`}>{resource.phone}</a>}
-                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={`mailto:${resource.email}`}>{resource.email}</a>}
+                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
+                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
                     {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Official program details ↗</a>}
                   </div>
                   <p className="mt-3 text-xs text-slate-400">Information checked November 24, 2026</p>
