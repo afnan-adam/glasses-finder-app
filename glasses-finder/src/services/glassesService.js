@@ -80,8 +80,9 @@ class GlassesService {
         site: 'Warby Parker',
         name: 'Felix',
         numeric_price: 95,
-        features: 'Square acetate frame, modern design, comfortable fit',
-        url: 'https://www.warbyparker.com/eyeglasses/felix/jet-black',
+        price_checked_at: '2026-11-24',
+        features: 'Square acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/felix/pacific-crystal',
         frame_style: 'square',
         material: 'Acetate',
         image_url: 'https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840'
@@ -90,8 +91,9 @@ class GlassesService {
         site: 'Warby Parker',
         name: 'Hardy',
         numeric_price: 95,
-        features: 'Rectangular acetate frame, classic styling, durable construction',
-        url: 'https://www.warbyparker.com/eyeglasses/hardy/whiskey-tortoise',
+        price_checked_at: '2026-11-24',
+        features: 'Rectangular acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/hardy/jet-black',
         frame_style: 'rectangular',
         material: 'Acetate',
         image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/a9e1bf621b38b473e8112e463b00181c7932af1d'
@@ -100,8 +102,9 @@ class GlassesService {
         site: 'Warby Parker',
         name: 'Percey',
         numeric_price: 95,
-        features: 'Metal frame, blue light filtering, adjustable nose pads',
-        url: 'https://www.warbyparker.com/eyeglasses/percey/polished-gold',
+        price_checked_at: '2026-11-24',
+        features: 'Round acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/percey/jet-black-matte',
         frame_style: 'round',
         material: 'Acetate',
         image_url: 'https://i.warbycdn.com/s/c/e9a58308f0c5645f237fcd0a2d95ded61a65d29b'
@@ -109,9 +112,10 @@ class GlassesService {
       {
         site: 'Warby Parker',
         name: 'Chamberlain',
-        numeric_price: 145,
-        features: 'Titanium frame, progressive lenses, lightweight design',
-        url: 'https://www.warbyparker.com/eyeglasses/chamberlain/brushed-navy',
+        numeric_price: 95,
+        price_checked_at: '2026-11-24',
+        features: 'Acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/chamberlain/crystal',
         frame_style: 'rectangular',
         material: 'Acetate',
         image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/9410cfbfee0945c81a82b7589f1a5430bc8e536d'
@@ -120,44 +124,14 @@ class GlassesService {
         site: 'Warby Parker',
         name: 'Rafael',
         numeric_price: 145,
-        features: 'Rounded lenses, slender-yet-sturdy construction, endlessly versatile pairing',
-        url: 'https://www.warbyparker.com/eyeglasses/rafael/jet-black',
+        price_checked_at: '2026-11-24',
+        features: 'Stainless-steel frame with acetate temple tips. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/rafael/polished-gold',
         frame_style: 'round',
-        material: 'Stainless Steel',
+        material: 'Stainless steel',
         image_url: 'https://i.warbycdn.com/s/c/dcd848053ff0aea9ae047f120bb8a34e81e7b8a5?quality=80&width=3840'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Durand',
-        numeric_price: 45,
-        features: 'Basic acetate frame, single vision, durable construction',
-        url: 'https://www.warbyparker.com/eyeglasses/durand/jet-black',
-        frame_style: 'square',
-        material: 'Acetate',
-        image_url: 'https://i.warbycdn.com/s/c/25804e0265deed089e3ccfff535ad6b9d088569a'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Burke',
-        numeric_price: 35,
-        features: 'Simple plastic frame, reading glasses, comfortable fit',
-        url: 'https://www.warbyparker.com/eyeglasses/burke/matte-black',
-        frame_style: 'rectangular',
-        material: 'Acetate',
-        image_url: 'https://i.warbycdn.com/s/c/8e84100582c4d8ea67a3f7c04483f05f2d0150fa'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Caldwell',
-        numeric_price: 25,
-        features: 'Ultra-budget frame, basic lenses, essential eyewear',
-        url: 'https://www.warbyparker.com/eyeglasses/caldwell/crystal-clear',
-        frame_style: 'rectangular',
-        material: 'Stainless Steel',
-        image_url: 'https://i.warbycdn.com/s/c/dcfbbe8d1d7fe55af1be15c0e365b28a83b4e83d?quality=100&width=2048'
-      },
-      // Additional Warby Parker frames across price ranges
-    ];
+      }
+    
 
     return rawData.map(item => this._createGlassesItem(item));
   }
@@ -538,100 +512,13 @@ class GlassesService {
   formatEligibilityForComponent(eligibility) {
     if (!eligibility) return null;
 
-    const income = eligibility.annualIncome;
-    const size = eligibility.householdSize;
-    
-    const federalPovertyLevel = 15060 + (size - 1) * 5380;
-    const percentage = (income / federalPovertyLevel) * 100;
-    
-    if (percentage <= 200) {
-      return this._createEligibilityResponse('High Assistance', 
-        'You may qualify for free or low-cost glasses through D.C. health programs!',
-        'text-green-600 bg-green-50 border-green-200',
-        this._getHighAssistancePrograms()
-      );
-    } 
-    
-    if (percentage <= 400) {
-      return this._createEligibilityResponse('Moderate Assistance', 
-        'You may qualify for discounted glasses and vision care.',
-        'text-blue-600 bg-blue-50 border-blue-200',
-        this._getModerateAssistancePrograms()
-      );
-    }
-    
-    return this._createEligibilityResponse('Standard Options', 
-      'Check out our affordable glasses options below!',
-      'text-purple-600 bg-purple-50 border-purple-200'
-    );
-  }
-
-  /**
-   * Create eligibility response object
-   * @private
-   */
-  _createEligibilityResponse(level, message, color, programs = []) {
     return Object.freeze({
-      level,
-      message,
-      color,
-      showPrograms: programs.length > 0,
-      programs: Object.freeze(programs)
+      level: 'Coverage needs confirmation',
+      message: 'Household income and ZIP code alone cannot determine vision coverage or program eligibility. Coverage depends on age, Medicaid or insurance plan, provider participation, prescription needs, and plan-specific rules. Use the official plan or provider to confirm benefits.',
+      color: 'text-blue-700 bg-blue-50 border-blue-200',
+      showPrograms: false,
+      programs: Object.freeze([])
     });
-  }
-
-  /**
-   * Get high assistance programs
-   * @private
-   */
-  _getHighAssistancePrograms() {
-    return [
-      {
-        name: 'DC Medicaid Vision Benefits',
-        contact: '(202) 727-5355',
-        website: 'dhcf.dc.gov',
-        description: 'Comprehensive eye exams and glasses coverage for Medicaid recipients'
-      },
-      {
-        name: 'Warby Parker Pupils Project',
-        contact: '(888) 492-7297',
-        website: 'warbyparker.com/pupils-project',
-        description: 'Free glasses for students in need through school partnerships and community programs'
-      },
-      {
-        name: 'Unity Health Care Vision Services',
-        contact: '(202) 469-4699',
-        website: 'unityhealthcare.org',
-        description: 'Sliding fee scale for low-income residents, includes eye exams and glasses'
-      },
-      {
-        name: 'Lions Club SightFirst Program',
-        contact: '(202) 331-7589',
-        website: 'dclions.org',
-        description: 'Free eye screenings and glasses for qualifying low-income individuals'
-      }
-    ];
-  }
-
-  /**
-   * Get moderate assistance programs
-   * @private
-   */
-  _getModerateAssistancePrograms() {
-    return [
-      {
-        name: 'DC Health Link Vision Plans',
-        contact: '(855) 532-5465',
-        website: 'dchealthlink.com',
-        description: 'Subsidized vision insurance plans with glasses benefits'
-      },
-      {
-        name: 'Walmart Vision Center',
-        contact: '(202) 635-1066',
-        website: 'walmart.com/vision',
-        description: 'Low-cost eye exams starting at $75, affordable glasses from $16'
-      }
-    ];
   }
 
   /**
