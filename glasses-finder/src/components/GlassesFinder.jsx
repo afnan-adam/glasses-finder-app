@@ -184,49 +184,57 @@ const GlassesFinder = () => {
     return frameImages[style] || frameImages['Classic'];
   };
 
-  // Use recommended glasses if available, otherwise use all glasses
-  const displayGlasses = recommendations ? recommendations.allRecommendations : allGlassesData;
-  
-  const filteredGlasses = displayGlasses.filter(glasses => {
-    // Filter by price range (from dropdown filters)
-    const priceMatch = filters.priceRange === 'all' || 
+  // Start with the complete catalog. Eligibility tier informs guidance,
+  // but should not hide frames a person may still choose to explore.
+  const displayGlasses = allGlassesData;
+
+  const budgetBounds = {
+    under50: [0, 49.99],
+    '50-75': [50, 75],
+    '75-100': [75, 100],
+    '100-150': [100, 150],
+    '150-200': [150, 200],
+    '200plus': [200, Infinity]
+  };
+  const selectedBudgetBounds = budgetBounds[formData.budget];
+
+  const glassesMatchingOtherFilters = displayGlasses.filter(glasses => {
+    const priceMatch = filters.priceRange === 'all' ||
       (filters.priceRange === 'under50' && glasses.numeric_price < 50) ||
       (filters.priceRange === '50-100' && glasses.numeric_price >= 50 && glasses.numeric_price <= 100) ||
       (filters.priceRange === 'over100' && glasses.numeric_price > 100);
-    
-    // Filter by frame style
-    const styleMatch = filters.frameStyle === 'all' || 
+    const styleMatch = filters.frameStyle === 'all' ||
       glasses.frame_style.toLowerCase() === filters.frameStyle.toLowerCase();
-    
-    // Filter by user's budget from form (if available)
-    let budgetMatch = true;
-    if (formData.budget) {
-      switch (formData.budget) {
-        case 'under50':
-          budgetMatch = glasses.numeric_price < 50;
-          break;
-        case '50-75':
-          budgetMatch = glasses.numeric_price >= 50 && glasses.numeric_price <= 75;
-          break;
-        case '75-100':
-          budgetMatch = glasses.numeric_price >= 75 && glasses.numeric_price <= 100;
-          break;
-        case '100-150':
-          budgetMatch = glasses.numeric_price >= 100 && glasses.numeric_price <= 150;
-          break;
-        case '150-200':
-          budgetMatch = glasses.numeric_price >= 150 && glasses.numeric_price <= 200;
-          break;
-        case '200plus':
-          budgetMatch = glasses.numeric_price >= 200;
-          break;
-        default:
-          budgetMatch = true;
-      }
-    }
-    
-    return priceMatch && styleMatch && budgetMatch;
+    return priceMatch && styleMatch;
   });
+
+  const exactBudgetMatches = selectedBudgetBounds
+    ? glassesMatchingOtherFilters.filter(glasses =>
+        glasses.numeric_price >= selectedBudgetBounds[0] &&
+        glasses.numeric_price <= selectedBudgetBounds[1]
+      )
+    : glassesMatchingOtherFilters;
+
+  // If the catalog has no exact match for the chosen budget, show up to
+  // three nearest alternatives rather than an empty results page.
+  const filteredGlasses = exactBudgetMatches.length > 0 || !selectedBudgetBounds
+    ? exactBudgetMatches
+    : [...glassesMatchingOtherFilters]
+        .sort((a, b) => {
+          const distance = price => price < selectedBudgetBounds[0]
+            ? selectedBudgetBounds[0] - price
+            : price > selectedBudgetBounds[1]
+              ? price - selectedBudgetBounds[1]
+              : 0;
+          return distance(a.numeric_price) - distance(b.numeric_price);
+        })
+        .slice(0, 3);
+
+  const showingBudgetAlternatives = Boolean(
+    selectedBudgetBounds &&
+    exactBudgetMatches.length === 0 &&
+    filteredGlasses.length > 0
+  );
 
   const getEligibilityMessage = () => {
     if (!eligibilityData) return null;
@@ -572,6 +580,16 @@ const GlassesFinder = () => {
             </select>
           </div>
           
+          {showingBudgetAlternatives && (
+            <div className="clearsight-alternatives-notice" role="status">
+              <Info className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <strong>No exact matches in this budget range just yet.</strong>
+                <p>Here are the closest-priced frames currently in our catalog. Prices are shown so you can decide whether any are worth exploring.</p>
+              </div>
+            </div>
+          )}
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredGlasses.map((glasses, index) => {
               const assistanceProgram = getAssistanceProgram(glasses.numeric_price, glasses.site);
