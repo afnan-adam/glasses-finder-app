@@ -1059,3 +1059,44 @@ a { text-underline-offset: 3px; }
   background: #fffefa;
   border-color: #bba4d0;
 }
+
+
+/* Let the eyewear photograph sit naturally in the page instead of inside a colored tile. */
+.clearsight-landing.clearsight-editorial .clearsight-editorial-photo {
+  min-height: 430px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-photo::before {
+  display: none;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-photo img {
+  height: 430px;
+  padding: 0;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.clearsight-landing.clearsight-editorial .clearsight-photo-caption {
+  right: 0;
+  bottom: .25rem;
+  left: 0;
+  color: #49315e;
+}
+.clearsight-landing.clearsight-editorial .clearsight-photo-caption span {
+  color: #80669a;
+}
+@media (max-width: 820px) {
+  .clearsight-landing.clearsight-editorial .clearsight-editorial-photo,
+  .clearsight-landing.clearsight-editorial .clearsight-editorial-photo img {
+    min-height: 320px;
+    height: 320px;
+  }
+}
+@media (max-width: 600px) {
+  .clearsight-landing.clearsight-editorial .clearsight-editorial-photo,
+  .clearsight-landing.clearsight-editorial .clearsight-editorial-photo img {
+    min-height: 280px;
+    height: 280px;
+  }
+}
