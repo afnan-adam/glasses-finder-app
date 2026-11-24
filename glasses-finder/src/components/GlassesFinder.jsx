@@ -266,8 +266,8 @@ const GlassesFinder = () => {
   };
 
   const WelcomeScreen = () => (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center border border-white/20 shadow-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-violet-700 via-purple-600 to-indigo-900 flex items-center justify-center p-4 clearsight-shell">
+      <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center border border-white/20 shadow-2xl clearsight-welcome-panel">
         <div className="mb-8">
           <Eye className="w-16 h-16 text-white mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-white mb-2">ClearSight D.C.</h1>
@@ -301,11 +301,11 @@ const GlassesFinder = () => {
 
   const EligibilityForm = () => (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 flex items-center justify-center p-4">
-      <div className="max-w-lg w-full bg-white rounded-3xl p-8 shadow-2xl">
+      <div className="max-w-lg w-full bg-white rounded-3xl p-8 shadow-2xl clearsight-form-panel">
         <div className="text-center mb-8">
           <Eye className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Tell Us About Your Household</h2>
-          <p className="text-gray-600">We'll help find the best options for your budget</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Let’s find your path to clearer vision</h2>
+          <p className="text-gray-600">A few details will help us explore affordable options for your household.</p>
         </div>
         
         <form onSubmit={handleFormSubmit} className="space-y-6">
@@ -406,7 +406,7 @@ const GlassesFinder = () => {
     
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-8">
+        <div className="bg-gradient-to-r from-violet-700 to-purple-600 text-white py-8 clearsight-results-header">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between">
               <div>
