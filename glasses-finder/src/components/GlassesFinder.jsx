@@ -605,8 +605,6 @@ const GlassesFinder = () => {
           </section>
         )}
 
-}
-
         {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students') && (
           <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
             <div className="mb-5">
@@ -636,6 +634,43 @@ const GlassesFinder = () => {
           </section>
         )}
         
+        {formData.hasChildren === 'yes' && (
+          <section className="max-w-6xl mx-auto px-4 py-8" aria-labelledby="student-vision-heading">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-purple-700">{t('For families and caregivers', 'Para familias y cuidadores')}</p>
+                <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Vision resources for children in your household', 'Recursos visuales para los niños de tu hogar')}</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">{t('Since you have children in your household, here are school and community programs to explore. Availability and access requirements vary.', 'Como hay niños en tu hogar, aquí tienes programas escolares y comunitarios que puedes explorar. La disponibilidad y los requisitos varían.')}</p>
+              </div>
+              <span className="rounded-full bg-purple-100 px-3 py-1.5 text-xs font-semibold text-purple-800">{t('K–12 resources', 'Recursos K–12')}</span>
+            </div>
+            <div className="clearsight-student-carousel" aria-label={t('Student vision resources', 'Recursos de salud visual para estudiantes')}>
+              <article className="clearsight-student-resource-card">
+                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('School-based vision care', 'Atención visual en las escuelas')}</p>
+                <h3 className="mt-2 text-xl font-semibold text-slate-900">Vision To Learn — Washington, D.C.</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Provides no-cost vision screenings, eye exams and prescription glasses to students in low-income communities through participating schools.', 'Ofrece evaluaciones visuales, exámenes de la vista y anteojos recetados sin costo a estudiantes de comunidades de bajos ingresos mediante escuelas participantes.')}</p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Ask your child’s school about participation or contact the D.C. program team to learn about current access.', 'Pregunta en la escuela de tu hijo o contacta al equipo local para conocer las opciones actuales.')}</p>
+                <div className="mt-4 flex flex-wrap gap-3 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="tel:+17038430309">(703) 843-0309</a><a className="font-semibold text-purple-700 hover:underline" href="mailto:washingtondc@visiontolearn.org">Email</a><a className="font-semibold text-purple-700 hover:underline" href="https://visiontolearn.org/where-we-work/washington-dc/" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
+              </article>
+              <article className="clearsight-student-resource-card">
+                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('School and nonprofit partnership', 'Alianza con escuelas y organizaciones')}</p>
+                <h3 className="mt-2 text-xl font-semibold text-slate-900">Glasses4Scholars — Prevention of Blindness Society</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Provides eye exams and prescription glasses to children through participating schools and nonprofits.', 'Ofrece exámenes de la vista y anteojos recetados a niños mediante escuelas y organizaciones sin fines de lucro participantes.')}</p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Ask the school or community organization whether it participates. This is not a general walk-in or direct family application program.', 'Pregunta en la escuela u organización comunitaria si participa. No es un servicio sin cita ni un programa de solicitud directa para familias.')}</p>
+                <div className="mt-4 flex flex-wrap gap-3 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="tel:+12022341010">(202) 234-1010 ext. 225</a><a className="font-semibold text-purple-700 hover:underline" href="mailto:cwood@youreyes.org">Email</a><a className="font-semibold text-purple-700 hover:underline" href="https://www.youreyes.org/programs/kids/" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
+              </article>
+              <article className="clearsight-student-resource-card">
+                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('No-cost eye exams', 'Exámenes de la vista sin costo')}</p>
+                <h3 className="mt-2 text-xl font-semibold text-slate-900">All Children See</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Connects eligible children with participating ophthalmologists for no-cost eye examinations in the D.C., Maryland and Virginia region.', 'Conecta a niños que califican con oftalmólogos participantes para recibir exámenes de la vista sin costo en la región de D.C., Maryland y Virginia.')}</p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('For children under 18 with a failed or incomplete vision screening, or another eye concern, whose family is uninsured or unable to afford the copay. Confirm criteria and provider availability.', 'Para menores de 18 años que no pasaron o no pudieron completar una evaluación visual, o tienen otra preocupación visual, y cuya familia no tiene seguro o no puede pagar el copago. Confirma los requisitos y la disponibilidad.')}</p>
+                <div className="mt-4 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="https://aapos.org/webdev/what-we-do/all-children-see/about-acs" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
+              </article>
+            </div>
+            <p className="mt-3 text-xs text-slate-500">{t('These programs are not automatic eligibility determinations. Contact each organization or your child’s school to confirm current participation.', 'Estos programas no determinan automáticamente si calificas. Contacta a cada organización o a la escuela de tu hijo para confirmar la participación actual.')}</p>
+          </section>
+        )}
+
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-wrap gap-4 mb-8 bg-white p-6 rounded-xl shadow-sm">
             <div className="flex items-center space-x-2">
