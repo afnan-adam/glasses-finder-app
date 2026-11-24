@@ -268,6 +268,7 @@ class GlassesService {
         }),
         Object.freeze({
           name: 'Warby Parker Pupils Project',
+          audience: 'K–12 students',
           category: 'School-based children’s program',
           description: 'Warby Parker partners with local organizations and government agencies to provide vision screenings, eye exams and free prescription glasses to schoolchildren through school-based programs.',
           eligibility: 'Not a direct individual application or general adult low-income discount. Access is through participating school and community partners; DC availability should be confirmed with Warby Parker or the school district.',
