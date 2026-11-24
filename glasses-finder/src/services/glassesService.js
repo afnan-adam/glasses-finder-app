@@ -159,7 +159,7 @@ class GlassesService {
     return Object.freeze({
       ...item,
       id: this._generateId(item.site, item.name),
-      price: item.price || `$${item.numeric_price}`,
+      price: item.price || `From ${item.numeric_price}`,
       image_url: item.image_url || null,
       url: item.url || '#',
       created_at: new Date().toISOString()
