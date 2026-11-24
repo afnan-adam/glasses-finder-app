@@ -692,3 +692,256 @@ a { text-underline-offset: 3px; }
   pointer-events: none;
   background: radial-gradient(circle at 88% 12%, rgba(196, 164, 255, .16), transparent 34%);
 }
+
+
+/* ClearSight editorial landing page */
+.clearsight-editorial {
+  color: #30243a;
+  background: #faf8f4;
+}
+.clearsight-editorial .clearsight-nav {
+  width: min(1240px, calc(100% - 3.5rem));
+  min-height: 86px;
+  border-bottom-color: #e9e3da;
+}
+.clearsight-editorial .clearsight-brand { color: #35145b; }
+.clearsight-editorial .clearsight-brand-mark {
+  border-radius: .55rem;
+  background: #4b2874;
+  box-shadow: none;
+}
+.clearsight-editorial .clearsight-brand strong { color: #7853a4; }
+.clearsight-editorial .clearsight-language-switch {
+  border-color: #e5ddd3;
+  background: #fffefa;
+}
+.clearsight-editorial-hero {
+  width: min(1240px, calc(100% - 3.5rem));
+  margin: 0 auto;
+  padding: clamp(3.8rem, 7vw, 6.5rem) 0 4.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .88fr);
+  align-items: center;
+  gap: clamp(3rem, 7vw, 7.5rem);
+}
+.clearsight-editorial-kicker,
+.clearsight-section-intro > span {
+  display: block;
+  color: #76548e;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.5;
+}
+.clearsight-editorial-copy h1 {
+  max-width: 680px;
+  margin: 1.35rem 0 1.4rem;
+  color: #30213e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.35rem, 6vw, 5.7rem);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: .99;
+}
+.clearsight-editorial-copy h1 em {
+  color: #68458a;
+  font-style: italic;
+}
+.clearsight-editorial-copy > p {
+  max-width: 560px;
+  color: #655c63;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+.clearsight-editorial-note {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin-top: 2rem;
+  color: #756b70;
+  font-size: .88rem;
+}
+.clearsight-editorial-rule {
+  width: 2.5rem;
+  height: 1px;
+  flex: 0 0 auto;
+  background: #8c6ba7;
+}
+.clearsight-editorial-photo {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 2px;
+  background: #eee7dc;
+}
+.clearsight-editorial-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 52%, rgba(40,25,48,.42));
+  pointer-events: none;
+}
+.clearsight-editorial-photo img {
+  display: block;
+  width: 100%;
+  height: 430px;
+  object-fit: contain;
+  padding: 2rem;
+  mix-blend-mode: multiply;
+}
+.clearsight-photo-caption {
+  position: absolute;
+  z-index: 2;
+  right: 1.5rem;
+  bottom: 1.35rem;
+  left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  color: white;
+}
+.clearsight-photo-caption span {
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+.clearsight-photo-caption strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.clearsight-editorial-pathways {
+  width: min(1240px, calc(100% - 3.5rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+  border-top: 1px solid #e8e1d8;
+}
+.clearsight-section-intro h2 {
+  margin: .6rem 0 .35rem;
+  color: #30213e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+.clearsight-section-intro p {
+  color: #756b70;
+  font-size: .98rem;
+}
+.clearsight-editorial-pathway-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
+  margin-top: 1.8rem;
+}
+.clearsight-editorial-pathway {
+  min-height: 150px;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.65rem;
+  border: 1px solid #e3dbd2;
+  border-radius: 3px;
+  background: #fffefa;
+  color: #30213e;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+.clearsight-editorial-pathway:hover {
+  border-color: #a88db9;
+  background: #fff;
+}
+.clearsight-editorial-pathway:focus-visible {
+  outline: 3px solid #a88db9;
+  outline-offset: 3px;
+}
+.clearsight-editorial-pathway-number {
+  align-self: start;
+  padding-top: .15rem;
+  color: #987cac;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+}
+.clearsight-editorial-pathway-content strong {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+}
+.clearsight-editorial-pathway-content small {
+  display: block;
+  max-width: 330px;
+  margin-top: .45rem;
+  color: #756b70;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+.clearsight-editorial-pathway-arrow {
+  color: #68458a;
+  font-size: 1.45rem;
+  transition: transform .2s ease;
+}
+.clearsight-editorial-pathway:hover .clearsight-editorial-pathway-arrow { transform: translate(2px,-2px); }
+.clearsight-editorial-how {
+  width: min(1240px, calc(100% - 3.5rem));
+  margin: 0 auto;
+  padding: 1.7rem 0 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  border-top: 1px solid #e8e1d8;
+}
+.clearsight-editorial-how > div {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  color: #655c63;
+  font-size: .9rem;
+}
+.clearsight-editorial-how span {
+  color: #8d70a2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: .85rem;
+}
+.clearsight-editorial-how strong { font-weight: 600; }
+.clearsight-editorial .clearsight-landing-footer {
+  width: min(1240px, calc(100% - 3.5rem));
+  border-top-color: #e8e1d8;
+}
+@media (max-width: 820px) {
+  .clearsight-editorial-hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 3.8rem;
+  }
+  .clearsight-editorial-photo { min-height: 320px; }
+  .clearsight-editorial-photo img { height: 320px; }
+  .clearsight-editorial-pathway-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .clearsight-editorial .clearsight-nav,
+  .clearsight-editorial-hero,
+  .clearsight-editorial-pathways,
+  .clearsight-editorial-how,
+  .clearsight-editorial .clearsight-landing-footer {
+    width: min(100% - 2rem, 560px);
+  }
+  .clearsight-editorial .clearsight-nav { align-items: flex-start; padding: 1rem 0; }
+  .clearsight-editorial .clearsight-nav-actions { gap: .4rem; }
+  .clearsight-editorial-copy h1 { font-size: clamp(3rem, 13vw, 4.25rem); }
+  .clearsight-editorial-photo { min-height: 280px; }
+  .clearsight-editorial-photo img { height: 280px; padding: 1.2rem; }
+  .clearsight-editorial-pathway { min-height: 130px; padding: 1.15rem; gap: .65rem; }
+  .clearsight-editorial-pathway-content strong { font-size: 1.2rem; }
+  .clearsight-editorial-how { grid-template-columns: 1fr; gap: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clearsight-editorial-pathway,
+  .clearsight-editorial-pathway-arrow { transition: none; }
+}
