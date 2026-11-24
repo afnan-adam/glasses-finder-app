@@ -194,43 +194,54 @@ class GlassesService {
    * @returns {Object} D.C. resources
    */
   _initializeDCResources() {
+    // Programs below are sourced from official provider/government pages.
+    // These are navigation resources, not individual eligibility determinations.
     return Object.freeze({
-      medicaid_providers: Object.freeze([
+      verified_resources: Object.freeze([
         Object.freeze({
-          name: 'DC Medicaid Vision Benefits',
-          description: 'Covers eye exams and glasses for Medicaid recipients',
-          phone: '1-800-635-1663',
-          website: 'https://dhcf.dc.gov'
+          name: 'Prevention of Blindness Society — Affordable Eyeglasses Clinic',
+          category: 'Low-cost eyeglasses',
+          description: 'Basic prescription eyeglasses start at $40, frames included. Requires a current eyeglasses prescription less than one year old and an appointment. Additional lens options cost extra. No walk-ins.',
+          eligibility: 'Open to people who have a current prescription and cannot afford the full cost. Accepted DC Medicaid plans may cover eligible glasses at no cost.',
+          address: '415 2nd Street NE, Washington, DC 20002',
+          phone: '(202) 234-1010, option 1',
+          website: 'https://www.youreyes.org/affordable-eyeglasses-clinic/',
+          source_checked_at: '2026-11-24'
         }),
         Object.freeze({
-          name: 'Martha\'s Table Eye Care',
-          description: 'Free eye exams and glasses for low-income families',
-          address: '2114 14th St NW, Washington, DC 20009',
-          phone: '(202) 328-6608'
-        })
-      ]),
-      discount_programs: Object.freeze([
+          name: 'DC Medicaid — Vision Benefits',
+          category: 'Public health coverage',
+          description: 'The 2026 DC Medicaid Fee-for-Service handbook lists annual eye exams and corrective lenses as needed for members under 21. Members age 21 and older receive one pair of eyeglasses every two years, with exceptions for lost glasses or a prescription change greater than 0.5 diopter.',
+          eligibility: 'For enrolled DC Medicaid members. Managed-care members should confirm their plan rules and network. The handbook benefit summary is not an individual coverage determination.',
+          phone: '(202) 442-5988',
+          website: 'https://dhcf.dc.gov/publication/medicaid-fee-service-member-handbook',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'DC Health Link — Individual Vision Plans (VSP)',
+          category: 'Optional vision insurance',
+          description: 'DC residents can purchase VSP individual vision coverage directly from VSP. Published options include annual exams, lenses and frames, with plan-specific copays and frame allowances. Premiums apply.',
+          eligibility: 'Available to DC residents who choose to purchase an individual vision plan. This is insurance for purchase, not free assistance.',
+          phone: '(855) 397-2013',
+          website: 'https://www.dchealthlink.com/vision',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'Washington Lions Club — Assistance Services',
+          category: 'Potential financial assistance',
+          description: 'The club states that it may assist low- and moderate-income people in the Washington area with purchasing eyeglasses. Public eligibility details and award amounts are not specified online; contact the club to ask about current availability.',
+          eligibility: 'Low- and moderate-income people in the Washington area; individual approval and current funding must be confirmed directly.',
+          email: 'info@washingtonlions.org',
+          website: 'https://www.washingtonlions.org/projects/assistance.php',
+          source_checked_at: '2026-11-24'
+        }),
         Object.freeze({
           name: 'Warby Parker Pupils Project',
-          description: 'Provides glasses to students and low-income individuals',
-          eligibility: 'Students and income-qualified individuals'
-        }),
-        Object.freeze({
-          name: 'OneSight',
-          description: 'Mobile clinics providing free eye care in D.C.',
-          website: 'https://onesight.org'
-        })
-      ]),
-      local_stores: Object.freeze([
-        Object.freeze({
-          name: 'LensCrafters - Dupont Circle',
-          address: '1150 Connecticut Ave NW, Washington, DC 20036',
-          phone: '(202) 822-2020'
-        }),
-        Object.freeze({
-          name: 'Pearle Vision - Columbia Heights',
-          address: '3100 14th St NW, Washington, DC 20010',
-          phone: '(202) 387-7327'
+          category: 'School-based children’s program',
+          description: 'Warby Parker partners with local organizations and government agencies to provide vision screenings, eye exams and free prescription glasses to schoolchildren through school-based programs.',
+          eligibility: 'Not a direct individual application or general adult low-income discount. Access is through participating school and community partners; DC availability should be confirmed with Warby Parker or the school district.',
+          website: 'https://www.warbyparker.com/pupils-project',
+          source_checked_at: '2026-11-24'
         })
       ])
     });
@@ -342,20 +353,9 @@ class GlassesService {
    * @param {string} tier - Eligibility tier
    * @returns {Array} Relevant resources
    */
-  _getRelevantResources(tier) {
-    const allResources = [
-      ...this._dcResources.discount_programs,
-      ...this._dcResources.local_stores
-    ];
-
-    if (tier === 'medicaid_eligible') {
-      return [
-        ...this._dcResources.medicaid_providers,
-        ...allResources
-      ];
-    }
-
-    return allResources;
+  _getRelevantResources() {
+    // Do not filter real-world resources using the app's unverified income tiers.
+    return [...this._dcResources.verified_resources];
   }
 
   /**
