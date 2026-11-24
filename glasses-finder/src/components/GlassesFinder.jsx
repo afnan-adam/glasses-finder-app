@@ -312,6 +312,43 @@ const GlassesFinder = () => {
     </main>
   );
 
+  const StudentScreen = () => {
+    const resources = [
+      { name: 'Vision To Learn — Washington, D.C.', category: 'Atención visual en las escuelas', description: 'Ofrece evaluaciones visuales, exámenes de la vista y anteojos recetados sin costo a estudiantes de comunidades de bajos ingresos mediante alianzas con escuelas en Washington, D.C.', eligibility: 'Los servicios se ofrecen a través de escuelas y organizaciones comunitarias participantes. Consulta con la escuela de tu hijo o contacta al equipo local para conocer las opciones actuales.', phone: '(703) 843-0309', email: 'washingtondc@visiontolearn.org', website: 'https://visiontolearn.org/where-we-work/washington-dc/' },
+      { name: 'Glasses4Scholars — Prevention of Blindness Society', category: 'Programa con escuelas y organizaciones', description: 'Ofrece exámenes de la vista y anteojos recetados a niños mediante escuelas y organizaciones sin fines de lucro participantes.', eligibility: 'Pregunta en la escuela o en la organización comunitaria si participa. No es un servicio sin cita ni una solicitud directa para familias; depende de las organizaciones anfitrionas y de la disponibilidad de profesionales voluntarios.', phone: '(202) 234-1010 ext. 225', email: 'cwood@youreyes.org', website: 'https://www.youreyes.org/programs/kids/' },
+      { name: 'All Children See', category: 'Exámenes de la vista sin costo', description: 'Conecta a niños que califican con oftalmólogos participantes para recibir exámenes de la vista sin costo en la región de D.C., Maryland y Virginia.', eligibility: 'Para menores de 18 años que no pasaron o no pudieron completar una evaluación visual, o que tienen otra preocupación visual, y cuya familia no tiene seguro o no puede pagar el copago. Confirma los criterios y la disponibilidad antes de programar.', website: 'https://aapos.org/webdev/what-we-do/all-children-see/about-acs' }
+    ];
+    return (
+      <main className="min-h-screen clearsight-student-page">
+        <header className="clearsight-form-nav">
+          <a className="clearsight-brand" href="#home" onClick={(e) => { e.preventDefault(); setCurrentStep('welcome'); }}><span className="clearsight-brand-mark"><Eye size={21} /></span><span>ClearSight <strong>D.C.</strong></span></a>
+          <div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div>
+        </header>
+        <section className="max-w-6xl mx-auto px-4 py-10">
+          <button type="button" className="clearsight-back-link" onClick={() => setCurrentStep('welcome')}>← {t('Back to overview', 'Volver al inicio')}</button>
+          <div className="max-w-3xl mt-6">
+            <span className="clearsight-eyebrow">{t('FOR PARENTS AND CAREGIVERS', 'PARA PADRES, MADRES Y CUIDADORES')}</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">{t('Vision support for K–12 students', 'Apoyo visual para estudiantes K–12')}</h1>
+            <p className="text-slate-600 mt-3 leading-relaxed">{t('Explore school-based programs and services that may help children access eye exams and prescription glasses at no cost. Access rules vary by program.', 'Explora programas escolares y servicios que pueden ayudar a los niños a recibir exámenes de la vista y anteojos recetados sin costo. Los requisitos varían según el programa.')}</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 mt-8">
+            {resources.map((resource) => (
+              <article key={resource.name} className="rounded-2xl border border-purple-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
+                <h2 className="mt-2 text-xl font-semibold text-slate-900">{resource.name}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
+                <div className="mt-4 flex flex-wrap gap-3 text-sm">{resource.phone && <a className="text-purple-700 font-medium" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}{resource.email && <a className="text-purple-700 font-medium" href={'mailto:' + resource.email}>{resource.email}</a>}<a className="text-purple-700 font-medium" href={resource.website} target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
+                <p className="mt-4 text-xs text-slate-400">{t('Information checked November 24, 2026', 'Información verificada el 24 de noviembre de 2026')}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 rounded-2xl bg-purple-50 border border-purple-100 p-5"><h2 className="font-semibold text-slate-900">{t('Not sure where to start?', '¿No sabes por dónde empezar?')}</h2><p className="text-sm text-slate-700 mt-2">{t('Ask your child’s school nurse or counselor whether the school participates in a vision program. For All Children See, review the program criteria and contact the program about participating providers.', 'Pregunta a la enfermera escolar o al consejero si la escuela participa en un programa de salud visual. Para All Children See, revisa los requisitos y consulta sobre los profesionales participantes.')}</p></div>
+        </section>
+      </main>
+    );
+  };
+
   const EligibilityForm = () => (
     <main className="min-h-screen clearsight-form-page">
       <header className="clearsight-form-nav">
@@ -734,6 +771,7 @@ const GlassesFinder = () => {
   };
 
   if (currentStep === 'welcome') return <WelcomeScreen />;
+  if (currentStep === 'students') return <StudentScreen />;
   if (currentStep === 'form') return <EligibilityForm />;
   if (currentStep === 'results') return <ResultsScreen />;
 };
