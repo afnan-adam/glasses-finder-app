@@ -267,7 +267,7 @@ const GlassesFinder = () => {
         </div>
       </header>
 
-      <section className="clearsight-editorial-hero" id="home">
+      <section className="clearsight-editorial-hero clearsight-hero-with-pathways" id="home">
         <div className="clearsight-editorial-copy">
           <span className="clearsight-editorial-kicker">{t('VISION CARE, MADE MORE ACCESSIBLE', 'CUIDADO VISUAL MÁS ACCESIBLE')}</span>
           <h1>{isSpanish ? <>Ver bien.<br/><em>Al alcance de todos.</em></> : <>Clear vision.<br/><em>More affordable options.</em></>}</h1>
@@ -276,39 +276,34 @@ const GlassesFinder = () => {
             <span className="clearsight-editorial-rule" />
             <span>{t('A local guide to help you understand where to start.', 'Una guía local para ayudarte a saber por dónde empezar.')}</span>
           </div>
-        </div>
-        <div className="clearsight-editorial-photo">
-          <img src="https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840" alt={t('Eyeglass frames available to explore', 'Armazones de anteojos que puedes explorar')} />
-          <div className="clearsight-photo-caption">
-            <span>{t('BETTER VISION STARTS HERE', 'UNA MEJOR VISIÓN COMIENZA AQUÍ')}</span>
-            <strong>{t('Options for real life.', 'Opciones para la vida real.')}</strong>
+          <div className="clearsight-editorial-inline-photo">
+            <img src="https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840" alt={t('Eyeglass frames', 'Armazones de anteojos')} />
           </div>
         </div>
-      </section>
-
-      <section className="clearsight-editorial-pathways" aria-labelledby="pathway-heading">
-        <div className="clearsight-section-intro">
-          <span>{t('START WITH WHAT YOU NEED', 'COMIENZA CON LO QUE NECESITAS')}</span>
-          <h2 id="pathway-heading">{t('How can we help?', '¿Cómo podemos ayudarte?')}</h2>
-          <p>{t('Choose the path that best fits you or your family.', 'Elige la opción que mejor se adapte a ti o a tu familia.')}</p>
-        </div>
-        <div className="clearsight-editorial-pathway-grid">
-          <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('form')}>
-            <span className="clearsight-editorial-pathway-number">01</span>
-            <span className="clearsight-editorial-pathway-content">
-              <strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong>
-              <small>{t('Explore eyewear, insurance, and possible assistance.', 'Explora lentes, seguros y posibles programas de ayuda.')}</small>
-            </span>
-            <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
-          </button>
-          <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('students')}>
-            <span className="clearsight-editorial-pathway-number">02</span>
-            <span className="clearsight-editorial-pathway-content">
-              <strong>{t('Vision care for children', 'Cuidado visual para niños')}</strong>
-              <small>{t('Find school and community programs for K–12 students.', 'Encuentra programas escolares y comunitarios para estudiantes de K–12.')}</small>
-            </span>
-            <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
-          </button>
+        <div className="clearsight-editorial-choice-panel" aria-labelledby="pathway-heading">
+          <div className="clearsight-section-intro">
+            <span>{t('START WITH WHAT YOU NEED', 'COMIENZA CON LO QUE NECESITAS')}</span>
+            <h2 id="pathway-heading">{t('How can we help?', '¿Cómo podemos ayudarte?')}</h2>
+            <p>{t('Choose the path that best fits you or your family.', 'Elige la opción que mejor se adapte a ti o a tu familia.')}</p>
+          </div>
+          <div className="clearsight-editorial-pathway-grid">
+            <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('form')}>
+              <span className="clearsight-editorial-pathway-number">01</span>
+              <span className="clearsight-editorial-pathway-content">
+                <strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong>
+                <small>{t('Explore eyewear, insurance, and possible assistance.', 'Explora lentes, seguros y posibles programas de ayuda.')}</small>
+              </span>
+              <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('students')}>
+              <span className="clearsight-editorial-pathway-number">02</span>
+              <span className="clearsight-editorial-pathway-content">
+                <strong>{t('Vision care for children', 'Cuidado visual para niños')}</strong>
+                <small>{t('Find school and community programs for K–12 students.', 'Encuentra programas escolares y comunitarios para estudiantes de K–12.')}</small>
+              </span>
+              <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
         </div>
       </section>
 
