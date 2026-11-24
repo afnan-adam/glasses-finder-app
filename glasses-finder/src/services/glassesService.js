@@ -83,7 +83,8 @@ class GlassesService {
         features: 'Square acetate frame, modern design, comfortable fit',
         url: 'https://www.warbyparker.com/eyeglasses/felix/jet-black',
         frame_style: 'square',
-        material: 'Acetate'
+        material: 'Acetate',
+        image_url: 'https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840'
       },
       {
         site: 'Warby Parker',
@@ -92,7 +93,8 @@ class GlassesService {
         features: 'Rectangular acetate frame, classic styling, durable construction',
         url: 'https://www.warbyparker.com/eyeglasses/hardy/whiskey-tortoise',
         frame_style: 'rectangular',
-        material: 'Acetate'
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/a9e1bf621b38b473e8112e463b00181c7932af1d'
       },
       {
         site: 'Warby Parker',
@@ -100,8 +102,9 @@ class GlassesService {
         numeric_price: 95,
         features: 'Metal frame, blue light filtering, adjustable nose pads',
         url: 'https://www.warbyparker.com/eyeglasses/percey/polished-gold',
-        frame_style: 'round',  // Percey is round, not square
-        material: 'Metal'
+        frame_style: 'round',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/s/c/e9a58308f0c5645f237fcd0a2d95ded61a65d29b'
       },
       {
         site: 'Warby Parker',
@@ -119,7 +122,8 @@ class GlassesService {
         features: 'Rounded lenses, slender-yet-sturdy construction, endlessly versatile pairing',
         url: 'https://www.warbyparker.com/eyeglasses/rafael/jet-black',
         frame_style: 'round',
-        material: 'Stainless Steel'
+        material: 'Stainless Steel',
+        image_url: 'https://i.warbycdn.com/s/c/dcd848053ff0aea9ae047f120bb8a34e81e7b8a5?quality=80&width=3840'
       },
       {
         site: 'Warby Parker',
@@ -127,8 +131,9 @@ class GlassesService {
         numeric_price: 45,
         features: 'Basic acetate frame, single vision, durable construction',
         url: 'https://www.warbyparker.com/eyeglasses/durand/jet-black',
-        frame_style: 'square',  // Durand is square
-        material: 'Acetate'
+        frame_style: 'square',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/s/c/25804e0265deed089e3ccfff535ad6b9d088569a'
       },
       {
         site: 'Warby Parker',
@@ -136,8 +141,9 @@ class GlassesService {
         numeric_price: 35,
         features: 'Simple plastic frame, reading glasses, comfortable fit',
         url: 'https://www.warbyparker.com/eyeglasses/burke/matte-black',
-        frame_style: 'rectangular',  // Burke is rectangular
-        material: 'Plastic'
+        frame_style: 'rectangular',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/s/c/8e84100582c4d8ea67a3f7c04483f05f2d0150fa'
       },
       {
         site: 'Warby Parker',
@@ -178,7 +184,7 @@ class GlassesService {
       ...item,
       id: this._generateId(item.site, item.name),
       price: item.price || `$${item.numeric_price}`,
-      image_url: item.image_url || this._getDefaultImage(item.frame_style),
+      image_url: item.image_url || null,
       url: item.url || '#',
       created_at: new Date().toISOString()
     });
