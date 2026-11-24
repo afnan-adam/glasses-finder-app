@@ -236,6 +236,37 @@ class GlassesService {
           source_checked_at: '2026-11-24'
         }),
         Object.freeze({
+          name: 'Vision To Learn — Washington, D.C.',
+          audience: 'K–12 students',
+          category: 'School-based vision care',
+          description: 'Provides no-cost vision screenings, eye exams, and prescription glasses to students in low-income communities through school partnerships in Washington, D.C.',
+          eligibility: 'Services are delivered through participating schools and community partners. Families should ask their child’s school about participation or contact the D.C. program team to learn about current access.',
+          phone: '(703) 843-0309',
+          email: 'washingtondc@visiontolearn.org',
+          website: 'https://visiontolearn.org/where-we-work/washington-dc/',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'Glasses4Scholars — Prevention of Blindness Society',
+          audience: 'K–12 students',
+          category: 'School and nonprofit partnership',
+          description: 'Provides eye exams and prescription eyeglasses to children through participating schools and nonprofit organizations. A volunteer licensed eye doctor examines students, children select frames, and glasses are delivered to the host site.',
+          eligibility: 'Families should ask their school or community organization whether it participates. This is not a general walk-in or direct family application program; availability depends on host partners and volunteer capacity.',
+          phone: '(202) 234-1010 ext. 225',
+          email: 'cwood@youreyes.org',
+          website: 'https://www.youreyes.org/programs/kids/',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'All Children See',
+          audience: 'K–12 students',
+          category: 'No-cost eye exams',
+          description: 'Connects eligible children with participating ophthalmologists for no-cost eye examinations. Participating providers serve the D.C., Maryland, and Virginia region.',
+          eligibility: 'For children under 18 with a failed or incomplete vision screening, or another eye concern, whose family is uninsured or unable to afford the copay. Confirm program criteria and provider availability before scheduling.',
+          website: 'https://aapos.org/webdev/what-we-do/all-children-see/about-acs',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
           name: 'Warby Parker Pupils Project',
           category: 'School-based children’s program',
           description: 'Warby Parker partners with local organizations and government agencies to provide vision screenings, eye exams and free prescription glasses to schoolchildren through school-based programs.',
