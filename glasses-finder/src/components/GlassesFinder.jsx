@@ -26,6 +26,7 @@ const GlassesFinder = () => {
   const [generatedImages, setGeneratedImages] = useState(new Map());
   const [studentResourceIndex, setStudentResourceIndex] = useState(0);
   const [adultResourceIndex, setAdultResourceIndex] = useState(0);
+  const [resultsPath, setResultsPath] = useState('overview');
 
   // Income ranges for MVP dropdown
   const incomeRanges = [
@@ -492,322 +493,47 @@ const GlassesFinder = () => {
   );
 
   const ResultsScreen = () => {
-    const eligibility = getEligibilityMessage();
+    const adultResources = (eligibilityData?.resources || []).filter(resource => !resource.audience || resource.audience !== 'K–12 students');
+    const studentResources = (eligibilityData?.resources || []).filter(resource => resource.audience === 'K–12 students');
+    const budgetLabel = budgetRanges.find(item => item.value === formData.budget)?.label || 'Not selected';
     const budgetGuidance = {
-      under50: {
-        title: 'Looking to spend under $50? Start here.',
-        body: 'The Prevention of Blindness Society’s Affordable Eyeglasses Clinic offers basic prescription glasses starting at $40, including frames. You need a current prescription dated within the last year and an appointment. Additional lens options cost extra.',
-        action: 'Check the $40 clinic option before shopping',
-        note: 'Accepted DC, Maryland, and Virginia Medicaid plans may cover eligible glasses at no cost. The clinic does not accept Medicare or other insurance.'
-      },
-      '50-75': {
-        title: 'Working with a $50–$75 budget? Compare low-cost options first.',
-        body: 'A local nonprofit clinic lists basic prescription glasses from $40, frames included. That may leave more room in your budget than many retail frames. Ask about lens options and the full price before ordering.',
-        action: 'Explore the affordable eyeglasses clinic',
-        note: 'A prescription less than one year old and an appointment are required. Accepted Medicaid plans may cover eligible glasses at no cost.'
-      },
-      '75-100': {
-        title: 'With $75–$100, compare the total cost—not just the frame.',
-        body: 'Some retail frames in this catalog start at $95 with basic single-vision lenses. The local affordable clinic starts at $40 including frames. Compare lens options, prescription needs, and final checkout totals.',
-        action: 'Compare the $40 clinic with retail options',
-        note: 'Retail upgrades may increase the final price. The clinic requires a current prescription and an appointment.'
-      },
-      '100-150': {
-        title: 'With $100–$150, compare lens inclusions and benefits.',
-        body: 'This catalog includes retail starting prices around $95 and $145. Before choosing, check whether your budget needs to cover lens upgrades, coatings, shipping, or an eye exam. You may also qualify for a lower-cost clinic option.',
-        action: 'Review affordable clinic and insurance options',
-        note: 'Ask your vision plan about frame allowances, copays, network providers, and prior authorization.'
-      },
-      '150-200': {
-        title: 'With $150–$200, check what your budget includes.',
-        body: 'You may have more retail frame choices, but lens upgrades can change the final total. Compare the complete prescription-glasses price and check whether your vision plan offers an allowance or in-network savings.',
-        action: 'Review your plan benefits before checkout',
-        note: 'If cost is still a concern, the local clinic lists basic glasses from $40, frames included.'
-      },
-      '200plus': {
-        title: 'With a $200+ budget, compare coverage and lens upgrades.',
-        body: 'At this range, compare frame quality, lens materials, coatings, progressive options, and warranty terms. Check your insurance allowance before paying out of pocket; a more expensive frame does not necessarily mean better vision coverage.',
-        action: 'Check your vision plan and compare total prices',
-        note: 'The local affordable clinic remains an option for basic glasses starting at $40, subject to its requirements.'
-      }
-    }[formData.budget];
-
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="bg-gradient-to-r from-violet-700 to-purple-600 text-white py-8 clearsight-results-header">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">{t('Your Glasses Options', 'Tus opciones de lentes')}</h1>
-                {formData.budget && (
-                  <p className="text-purple-100 mb-1">
-                    {t('Your selected budget:', 'Tu presupuesto seleccionado:')} {budgetRanges.find(b => b.value === formData.budget)?.label}
-                  </p>
-                )}
-                <p className="text-purple-100">{isSpanish ? `Encontramos ${filteredGlasses.length} opciones de lentes para ti` : `Found ${filteredGlasses.length} glasses matching your criteria`}</p>
-                <p className="text-purple-200 text-sm mt-2">
-                  {t('Coverage is not determined by income alone. Confirm benefits with your insurer or Medicaid plan.', 'La cobertura no se determina únicamente por los ingresos. Confirma los beneficios con tu aseguradora o plan de Medicaid.')}
-                </p>
-              </div>
-              <div className="clearsight-results-actions"><div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div><button
-                onClick={() => setCurrentStep('form')}
-                className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
-              >
-                {t('Edit Search', 'Editar búsqueda')}
-              </button></div>
-            </div>
-          </div>
-        </div>
-        
-        {eligibility && (
-          <div className="max-w-6xl mx-auto px-4 py-6">
-            <div className={`p-6 rounded-xl border ${eligibility.color}`}>
-              <div className="flex items-center space-x-2 mb-3">
-                <Eye className="w-5 h-5" />
-                <span className="font-semibold text-lg">{eligibility.level}</span>
-              </div>
-              <p className="mb-4">{eligibility.message}</p>
-              
-              {eligibility.showPrograms && (
-                <div className="mt-6">
-                  <h3 className="font-semibold text-lg mb-4 flex items-center">
-                    <Info className="w-5 h-5 mr-2" />
-                    {t('Available Assistance Programs', 'Programas de asistencia disponibles')}
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {eligibility.programs.map((program, index) => (
-                      <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-                        <h4 className="font-semibold text-gray-800 mb-2">{program.name}</h4>
-                        <p className="text-sm text-gray-600 mb-3">{program.description}</p>
-                        
-                        <div className="space-y-2">
-                          <div className="flex items-center text-sm">
-                            <Phone className="w-4 h-4 mr-2 text-gray-500" />
-                            <span className="text-gray-700">{program.contact}</span>
-                          </div>
-                          <div className="flex items-center text-sm">
-                            <Globe className="w-4 h-4 mr-2 text-gray-500" />
-                            <a 
-                              href={`https://${program.website}`} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:text-blue-800 hover:underline"
-                            >
-                              {program.website}
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {budgetGuidance && (
-          <section className="max-w-6xl mx-auto px-4 pt-6" aria-labelledby="budget-guidance-heading">
-            <div className="rounded-2xl border border-purple-200 bg-purple-50 p-6 md:p-7">
-              <p className="text-xs font-semibold uppercase tracking-wider text-purple-700">{t('Your budget guide', 'Tu guía de presupuesto')}</p>
-              <h2 id="budget-guidance-heading" className="mt-2 text-xl font-bold text-slate-900 md:text-2xl">{isSpanish ? 'Guía según tu presupuesto' : budgetGuidance.title}</h2>
-              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">{budgetGuidance.body}</p>
-              <a
-                href="https://www.youreyes.org/affordable-eyeglasses-clinic/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center rounded-lg bg-purple-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-800"
-              >
-                {budgetGuidance.action} ↗
-              </a>
-              <p className="mt-3 max-w-3xl text-xs leading-relaxed text-slate-600">{budgetGuidance.note}</p>
-            </div>
-          </section>
-        )}
-
-        {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students' && resource.name !== 'Warby Parker Pupils Project') && (
-          <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
-            <div className="mb-5">
-              <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">Additional resources</p>
-              <h2 id="vision-resources-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Vision care and eyewear assistance in D.C.', 'Atención visual y ayuda para obtener lentes en D.C.')}</h2>
-              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-                These services have different coverage and access requirements. They are not a determination that you qualify. Contact each provider to confirm current availability, costs, network participation and any required authorization.
-              </p>
-            </div>
-            {(() => {
-              const resources = eligibilityData.resources.filter(resource => resource.audience !== 'K–12 students' && resource.name !== 'Warby Parker Pupils Project');
-              const resource = resources[Math.min(adultResourceIndex, resources.length - 1)];
-              return (
-                <>
-                  <article key={resource.name} className="max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-live="polite">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
-                    <h3 className="mt-2 text-xl font-semibold text-slate-900 md:text-2xl">{resource.name}</h3>
-                    <p className="mt-4 leading-relaxed text-slate-600">{resource.description}</p>
-                    <div className="mt-5 rounded-xl bg-purple-50 p-4">
-                      <p className="text-sm font-semibold text-slate-900">Who can access this?</p>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.eligibility}</p>
-                    </div>
-                    {resource.address && <p className="mt-4 text-sm text-slate-700">{resource.address}</p>}
-                    <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
-                      {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
-                      {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
-                      {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Official program details ↗</a>}
-                    </div>
-                    <p className="mt-5 text-xs text-slate-400">Information checked November 24, 2026</p>
-                  </article>
-                  <div className="mt-4 flex max-w-3xl items-center justify-between gap-3">
-                    <button type="button" onClick={() => setAdultResourceIndex(index => Math.max(0, index - 1))} disabled={adultResourceIndex === 0} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-40">← Previous</button>
-                    <span className="text-sm tabular-nums text-slate-500" aria-live="polite">{Math.min(adultResourceIndex, resources.length - 1) + 1} of {resources.length}</span>
-                    <button type="button" onClick={() => setAdultResourceIndex(index => Math.min(resources.length - 1, index + 1))} disabled={adultResourceIndex >= resources.length - 1} className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-800 disabled:cursor-not-allowed disabled:opacity-40">Next →</button>
-                  </div>
-                  <div className="mt-3 flex max-w-3xl justify-center gap-2" aria-hidden="true">
-                    {resources.map((item, index) => <span key={item.name} className={`h-1.5 w-8 rounded-full ${index === Math.min(adultResourceIndex, resources.length - 1) ? 'bg-purple-700' : 'bg-slate-200'}`} />)}
-                  </div>
-                </>
-              );
-            })()}
-          </section>
-        )}
-        
-        {formData.hasChildren === 'yes' && (
-          <section className="max-w-6xl mx-auto px-4 py-8" aria-labelledby="student-vision-heading">
-            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-700">{t('For families and caregivers', 'Para familias y cuidadores')}</p>
-                <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Vision resources for children in your household', 'Recursos visuales para los niños de tu hogar')}</h2>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">{t('Since you have children in your household, here are school and community programs to explore. Availability and access requirements vary.', 'Como hay niños en tu hogar, aquí tienes programas escolares y comunitarios que puedes explorar. La disponibilidad y los requisitos varían.')}</p>
-              </div>
-              <span className="rounded-full bg-purple-100 px-3 py-1.5 text-xs font-semibold text-purple-800">{t('K–12 resources', 'Recursos K–12')}</span>
-            </div>
-            <div className="clearsight-student-carousel" aria-label={t('Student vision resources', 'Recursos de salud visual para estudiantes')}>
-              <article className="clearsight-student-resource-card">
-                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('School-based vision care', 'Atención visual en las escuelas')}</p>
-                <h3 className="mt-2 text-xl font-semibold text-slate-900">Vision To Learn — Washington, D.C.</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Provides no-cost vision screenings, eye exams and prescription glasses to students in low-income communities through participating schools.', 'Ofrece evaluaciones visuales, exámenes de la vista y anteojos recetados sin costo a estudiantes de comunidades de bajos ingresos mediante escuelas participantes.')}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Ask your child’s school about participation or contact the D.C. program team to learn about current access.', 'Pregunta en la escuela de tu hijo o contacta al equipo local para conocer las opciones actuales.')}</p>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="tel:+17038430309">(703) 843-0309</a><a className="font-semibold text-purple-700 hover:underline" href="mailto:washingtondc@visiontolearn.org">Email</a><a className="font-semibold text-purple-700 hover:underline" href="https://visiontolearn.org/where-we-work/washington-dc/" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
-              </article>
-              <article className="clearsight-student-resource-card">
-                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('School and nonprofit partnership', 'Alianza con escuelas y organizaciones')}</p>
-                <h3 className="mt-2 text-xl font-semibold text-slate-900">Glasses4Scholars — Prevention of Blindness Society</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Provides eye exams and prescription glasses to children through participating schools and nonprofits.', 'Ofrece exámenes de la vista y anteojos recetados a niños mediante escuelas y organizaciones sin fines de lucro participantes.')}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Ask the school or community organization whether it participates. This is not a general walk-in or direct family application program.', 'Pregunta en la escuela u organización comunitaria si participa. No es un servicio sin cita ni un programa de solicitud directa para familias.')}</p>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="tel:+12022341010">(202) 234-1010 ext. 225</a><a className="font-semibold text-purple-700 hover:underline" href="mailto:cwood@youreyes.org">Email</a><a className="font-semibold text-purple-700 hover:underline" href="https://www.youreyes.org/programs/kids/" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
-              </article>
-              <article className="clearsight-student-resource-card">
-                <p className="text-xs font-bold uppercase tracking-wide text-purple-700">{t('No-cost eye exams', 'Exámenes de la vista sin costo')}</p>
-                <h3 className="mt-2 text-xl font-semibold text-slate-900">All Children See</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('Connects eligible children with participating ophthalmologists for no-cost eye examinations in the D.C., Maryland and Virginia region.', 'Conecta a niños que califican con oftalmólogos participantes para recibir exámenes de la vista sin costo en la región de D.C., Maryland y Virginia.')}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('For children under 18 with a failed or incomplete vision screening, or another eye concern, whose family is uninsured or unable to afford the copay. Confirm criteria and provider availability.', 'Para menores de 18 años que no pasaron o no pudieron completar una evaluación visual, o tienen otra preocupación visual, y cuya familia no tiene seguro o no puede pagar el copago. Confirma los requisitos y la disponibilidad.')}</p>
-                <div className="mt-4 text-sm"><a className="font-semibold text-purple-700 hover:underline" href="https://aapos.org/webdev/what-we-do/all-children-see/about-acs" target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
-              </article>
-            </div>
-            <p className="mt-3 text-xs text-slate-500">{t('These programs are not automatic eligibility determinations. Contact each organization or your child’s school to confirm current participation.', 'Estos programas no determinan automáticamente si calificas. Contacta a cada organización o a la escuela de tu hijo para confirmar la participación actual.')}</p>
-          </section>
-        )}
-
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="flex flex-wrap gap-4 mb-8 bg-white p-6 rounded-xl shadow-sm">
-            <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-gray-500" />
-              <span className="font-semibold text-gray-700">{t('Filters:', 'Filtros:')}</span>
-            </div>
-            
-            <select
-              value={filters.priceRange}
-              onChange={(e) => setFilters({...filters, priceRange: e.target.value})}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-            >
-              <option value="all">{t('All Prices', 'Todos los precios')}</option>
-              <option value="under50">Under $50</option>
-              <option value="50-100">$50 - $100</option>
-              <option value="over100">Over $100</option>
-            </select>
-            
-            <select
-              value={filters.frameStyle}
-              onChange={(e) => setFilters({...filters, frameStyle: e.target.value})}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-            >
-              <option value="all">{t('All Styles', 'Todos los estilos')}</option>
-              <option value="round">Round</option>
-              <option value="square">Square</option>
-              <option value="rectangular">Rectangular</option>
-              <option value="aviator">Aviator</option>
-              <option value="cat-eye">Cat-Eye</option>
-              <option value="classic">Classic</option>
-            </select>
-          </div>
-          
-          {showingBudgetAlternatives && (
-            <div className="clearsight-alternatives-notice" role="status">
-              <Info className="w-5 h-5 flex-shrink-0" />
-              <div>
-                <strong>No exact matches in this budget range just yet.</strong>
-                <p>Here are the closest-priced frames currently in our catalog. Prices are shown so you can decide whether any are worth exploring.</p>
-              </div>
-            </div>
-          )}
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredGlasses.map((glasses, index) => (
-                <div key={glasses.id || index} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 hover:border-purple-200">
-                  <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-                    <GlassesImageCard glasses={glasses} className="h-full" />
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-bold text-gray-800">{glasses.name}</h3>
-                      <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        From ${glasses.numeric_price}
-                      </span>
-                    </div>
-                    <p className="mb-4 text-xs text-gray-500">
-                      Starting price for single-vision lenses; upgrades and prescription options may cost more.
-                    </p>
-
-                    <div className="space-y-2 mb-4">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Style:</span>
-                        <span className="font-medium capitalize">{glasses.frame_style}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Material:</span>
-                        <span className="font-medium">{glasses.material}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Site:</span>
-                        <span className="font-medium">{glasses.site}</span>
-                      </div>
-                    </div>
-                    
-                    <p className="text-gray-600 text-sm mb-4">{glasses.features}</p>
-                    
-                    <div className="mt-4">
-                      <a
-                        href={glasses.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full bg-slate-800 text-white py-3 px-4 rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors text-center tracking-wide"
-                      >
-                        View at {glasses.site}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-            ))}
-          </div>
-          
-          {filteredGlasses.length === 0 && (
-            <div className="text-center py-12">
-              <Eye className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">{t('No glasses match your filters', 'Ningún lente coincide con tus filtros')}</h3>
-              <p className="text-gray-500">{t('Try adjusting your price range or frame style filters', 'Prueba cambiar el rango de precios o el estilo de armazón')}</p>
-            </div>
-          )}
-        </div>
+      under50: 'The Prevention of Blindness Society lists basic prescription glasses from $40, frames included. A current prescription (less than one year old) and an appointment are required. Additional lens options may cost extra.',
+      '50-75': 'A local nonprofit clinic lists basic prescription glasses from $40, frames included. Compare that option before considering retail frames that may exceed your budget.',
+      '75-100': 'Some retail frames in this catalog start at $95 with basic single-vision lenses. Compare the full price, lens options, and the local clinic option.',
+      '100-150': 'Compare retail starting prices, lens upgrades, coatings, shipping, and eye exam costs. Check your vision plan for allowances and copays.',
+      '150-200': 'You may have more retail choices, but compare the complete prescription-glasses price and any insurance benefits before checkout.',
+      '200plus': 'Compare lens materials, coatings, progressive options, warranties, and your insurance allowance—not just the frame price.'
+    }[formData.budget] || 'Compare the full cost of frames, lenses, and any exam or shipping fees before ordering.';
+    const pathButton = (key, icon, title, description) => (
+      <button type="button" onClick={() => setResultsPath(key)} className="w-full rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:border-purple-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <span className="flex items-center gap-4"><span className="rounded-xl bg-purple-50 p-3 text-purple-700">{icon}</span><span className="min-w-0 flex-1"><strong className="block text-base text-slate-900">{title}</strong><span className="mt-1 block text-sm text-slate-600">{description}</span></span><span className="text-xl text-purple-700" aria-hidden="true">→</span></span>
+      </button>
+    );
+    const resourceCard = (resource, index, total, setIndex, isStudent = false) => (
+      <div className="max-w-3xl">
+        <article key={resource.name} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-live="polite">
+          <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p><h3 className="mt-2 text-xl font-semibold text-slate-900 md:text-2xl">{resource.name}</h3>
+          <p className="mt-4 leading-relaxed text-slate-600">{resource.description}</p>
+          <div className="mt-5 rounded-xl bg-purple-50 p-4"><p className="text-sm font-semibold text-slate-900">{isStudent ? 'How families can access this' : 'Who can access this?'}</p><p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.eligibility}</p></div>
+          {resource.address && <p className="mt-4 text-sm text-slate-700">{resource.address}</p>}
+          <div className="mt-5 flex flex-wrap gap-4 text-sm">{resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}{resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}{resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Official program details ↗</a>}</div>
+          <p className="mt-5 text-xs text-slate-400">Information checked November 24, 2026</p>
+        </article>
+        <div className="mt-4 flex items-center justify-between gap-3"><button type="button" onClick={() => setIndex(i => Math.max(0, i - 1))} disabled={index === 0} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 disabled:opacity-40">← Previous</button><span className="text-sm tabular-nums text-slate-500">{index + 1} of {total}</span><button type="button" onClick={() => setIndex(i => Math.min(total - 1, i + 1))} disabled={index >= total - 1} className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-800 disabled:opacity-40">Next →</button></div>
+        <div className="mt-3 flex justify-center gap-2" aria-hidden="true">{Array.from({length: total}, (_, i) => <span key={i} className={`h-1.5 w-8 rounded-full ${i === index ? 'bg-purple-700' : 'bg-slate-200'}`} />)}</div>
       </div>
+    );
+    return (
+      <main className="min-h-screen bg-slate-50">
+        <header className="bg-gradient-to-r from-violet-700 to-purple-600 py-7 text-white"><div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4"><div><p className="text-sm font-semibold text-purple-100">CLEARSIGHT D.C. · YOUR PERSONALIZED GUIDE</p><h1 className="mt-2 text-3xl font-bold">{t('Your next step toward clearer vision', 'Tu próximo paso hacia una mejor visión')}</h1><p className="mt-2 text-purple-100">{t('Your glasses budget:', 'Tu presupuesto para lentes:')} {budgetLabel}</p></div><div className="flex items-center gap-3"><div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div><button onClick={() => setCurrentStep('form')} className="rounded-lg bg-white/20 px-4 py-2 hover:bg-white/30">{t('Edit answers', 'Editar respuestas')}</button></div></div></header>
+        <div className="mx-auto max-w-6xl px-4 py-8">
+          {resultsPath !== 'overview' && <button type="button" onClick={() => setResultsPath('overview')} className="mb-6 text-sm font-semibold text-purple-700 hover:underline">← Back to your guide</button>}
+          {resultsPath === 'overview' && <section className="max-w-3xl"><div className="rounded-2xl border border-purple-200 bg-white p-6 shadow-sm md:p-8"><p className="text-xs font-bold uppercase tracking-wider text-purple-700">A GOOD PLACE TO START</p><h2 className="mt-2 text-2xl font-bold text-slate-900">Let's find an option that works for your budget.</h2><p className="mt-3 text-sm leading-relaxed text-slate-600">{budgetGuidance}</p><p className="mt-3 text-sm text-slate-600">The local clinic lists basic glasses from $40, frames included. A current prescription and appointment are required; ask about the full cost of any lens options.</p><a href="https://www.youreyes.org/affordable-eyeglasses-clinic/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-lg bg-purple-700 px-4 py-3 text-sm font-semibold text-white hover:bg-purple-800">Explore the affordable eyeglasses clinic ↗</a></div><h2 className="mt-8 text-xl font-bold text-slate-900">What would you like to explore?</h2><p className="mt-2 text-sm text-slate-600">Choose one path. You can come back here whenever you like.</p><div className="mt-4 grid gap-4">{pathButton('assistance', <HeartHandshake size={24} />, 'Find affordable vision assistance', 'Clinics, Medicaid vision benefits, and possible financial assistance.')}{pathButton('glasses', <Eye size={24} />, 'Browse eyeglass frames', showingBudgetAlternatives ? 'No catalog frames match your selected budget. See clearly labeled higher-priced alternatives.' : 'Compare frame styles, starting prices, and retailers.')}{pathButton('students', <Users size={24} />, 'Find glasses and eye care for a child', 'K–12 school and community vision programs for families.')}</div><div className="mt-6 rounded-xl border border-slate-200 bg-white p-4"><p className="font-semibold text-slate-900">About coverage</p><p className="mt-1 text-sm leading-relaxed text-slate-600">Income and ZIP code alone cannot determine vision coverage. Benefits depend on your age, insurance or Medicaid plan, provider participation, and prescription needs. Confirm coverage directly with your plan.</p></div></section>}
+          {resultsPath === 'assistance' && <section><div className="mb-6 max-w-3xl"><p className="text-xs font-bold uppercase tracking-wider text-purple-700">VISION ASSISTANCE</p><h2 className="mt-2 text-2xl font-bold text-slate-900">Explore local vision resources</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">These resources have different costs and access rules. Contact the provider to confirm current availability and your specific benefits.</p></div>{adultResources.length ? resourceCard(adultResources[Math.min(adultResourceIndex, adultResources.length - 1)], Math.min(adultResourceIndex, adultResources.length - 1), adultResources.length, setAdultResourceIndex) : <p>No adult resources are currently listed.</p>}</section>}
+          {resultsPath === 'students' && <section><div className="mb-6 max-w-3xl"><p className="text-xs font-bold uppercase tracking-wider text-purple-700">FOR PARENTS AND CAREGIVERS</p><h2 className="mt-2 text-2xl font-bold text-slate-900">Vision support for K–12 students</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">These programs may help children access eye exams and prescription glasses. Many work through participating schools and community organizations.</p></div>{studentResources.length ? resourceCard(studentResources[Math.min(studentResourceIndex, studentResources.length - 1)], Math.min(studentResourceIndex, studentResources.length - 1), studentResources.length, setStudentResourceIndex, true) : <p>No K–12 resources are currently listed.</p>}</section>}
+          {resultsPath === 'glasses' && <section><div className="mb-6 max-w-3xl"><p className="text-xs font-bold uppercase tracking-wider text-purple-700">EYEGLASS CATALOG</p><h2 className="mt-2 text-2xl font-bold text-slate-900">Browse frames and compare prices</h2><p className="mt-2 text-sm text-slate-600">Your selected budget: {budgetLabel}. Prices are starting prices for single-vision lenses; upgrades may cost more.</p></div><div className="mb-6 flex flex-wrap gap-3 rounded-xl bg-white p-4 shadow-sm"><label className="text-sm text-slate-700">Price <select value={filters.priceRange} onChange={e => setFilters({...filters, priceRange:e.target.value})} className="ml-2 rounded-lg border border-slate-300 px-3 py-2"><option value="all">All prices</option><option value="under50">Under $50</option><option value="50-100">$50–$100</option><option value="over100">Over $100</option></select></label><label className="text-sm text-slate-700">Style <select value={filters.frameStyle} onChange={e => setFilters({...filters, frameStyle:e.target.value})} className="ml-2 rounded-lg border border-slate-300 px-3 py-2"><option value="all">All styles</option><option value="round">Round</option><option value="square">Square</option><option value="rectangular">Rectangular</option><option value="aviator">Aviator</option><option value="cat-eye">Cat-eye</option><option value="classic">Classic</option></select></label></div>{showingBudgetAlternatives && <div className="mb-5 max-w-3xl rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900"><strong>No exact matches in this budget range.</strong><p className="mt-1">The frames below are alternatives above your selected budget, not matches. Consider them only if you can stretch your budget.</p></div>}{!showingBudgetAlternatives && <p className="mb-4 text-sm text-slate-600">{filteredGlasses.length} frame options in the selected range.</p>}<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{filteredGlasses.map((glasses, index) => <article key={glasses.id || index} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"><div className="h-48 overflow-hidden bg-slate-100"><GlassesImageCard glasses={glasses} className="h-full" /></div><div className="p-5"><div className="flex items-start justify-between gap-3"><h3 className="text-xl font-bold text-slate-900">{glasses.name}</h3><span className="rounded-full bg-purple-50 px-3 py-1 text-sm font-semibold text-purple-800">From ${glasses.numeric_price}</span></div><p className="mt-2 text-xs text-slate-500">Starting price for single-vision lenses; upgrades and prescription options may cost more.</p><p className="mt-3 text-sm text-slate-600">{glasses.frame_style} · {glasses.material}</p><p className="mt-2 text-sm text-slate-600">{glasses.features}</p><a href={glasses.url} target="_blank" rel="noopener noreferrer" className="mt-4 block rounded-lg bg-slate-800 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-slate-700">View at {glasses.site} ↗</a></div></article>)}</div>{filteredGlasses.length === 0 && <p className="rounded-xl bg-white p-6 text-slate-600">No frames match these filters. Try another price or style.</p>}</section>}
+        </div>
+      </main>
     );
   };
 
