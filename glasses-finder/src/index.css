@@ -1011,3 +1011,51 @@ a { text-underline-offset: 3px; }
   border-top-color: rgba(238, 224, 255, .22);
   color: #d8c9e8;
 }
+
+
+/* Lighter editorial palette: lavender canvas, plum ink, restrained purple accents. */
+.clearsight-landing.clearsight-editorial {
+  color: #30213e;
+  background: linear-gradient(180deg, #f7f2fc 0%, #f1eafb 58%, #faf8f4 100%);
+}
+.clearsight-landing.clearsight-editorial .clearsight-nav {
+  border-bottom-color: #e2d7ed;
+}
+.clearsight-landing.clearsight-editorial .clearsight-brand,
+.clearsight-landing.clearsight-editorial .clearsight-location {
+  color: #43245f;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-copy h1 {
+  color: #30213e;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-copy h1 em {
+  color: #7650a2;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-kicker,
+.clearsight-landing.clearsight-editorial .clearsight-section-intro > span {
+  color: #7650a2;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-copy > p,
+.clearsight-landing.clearsight-editorial .clearsight-editorial-note,
+.clearsight-landing.clearsight-editorial .clearsight-section-intro p {
+  color: #62566b;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-photo {
+  background: #e9def4;
+  border: 1px solid #e0d3ed;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-photo::before {
+  background: linear-gradient(180deg, transparent 62%, rgba(53,20,91,.16));
+}
+.clearsight-landing.clearsight-editorial .clearsight-photo-caption {
+  color: #35145b;
+  text-shadow: none;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-pathway {
+  background: rgba(255,254,250,.82);
+  border-color: #e1d6eb;
+}
+.clearsight-landing.clearsight-editorial .clearsight-editorial-pathway:hover {
+  background: #fffefa;
+  border-color: #bba4d0;
+}
