@@ -618,3 +618,62 @@ a { text-underline-offset: 3px; }
   .clearsight-results-actions { align-items: flex-end; flex-direction: column; }
   .clearsight-pathway-card { padding: 1rem; }
 }
+
+
+/* Horizontal student resource browsing */
+.clearsight-student-carousel {
+  display: flex;
+  align-items: stretch;
+  gap: 1.1rem;
+  overflow-x: auto;
+  padding: .25rem .15rem 1.25rem;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: .15rem;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #c9b5e3 #f3eef9;
+}
+.clearsight-student-resource-card {
+  flex: 0 0 min( min(82vw, 390px), 100%);
+  min-width: 0;
+  padding: 1.45rem;
+  border: 1px solid #e4d4f5;
+  border-radius: 1.15rem;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(60,38,91,.06);
+  scroll-snap-align: start;
+  animation: clearsight-card-arrive .48s cubic-bezier(.2,.75,.25,1) both;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.clearsight-student-resource-card:hover {
+  transform: translateY(-4px);
+  border-color: #bd9de4;
+  box-shadow: 0 18px 36px rgba(60,38,91,.11);
+}
+.clearsight-student-page > section {
+  animation: clearsight-page-arrive .38s ease both;
+}
+@keyframes clearsight-card-arrive {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes clearsight-page-arrive {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.clearsight-pathway-button:focus-visible,
+.clearsight-language-switch button:focus-visible {
+  outline: 3px solid #a985d5;
+  outline-offset: 3px;
+}
+@media (min-width: 900px) {
+  .clearsight-student-resource-card { flex-basis: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clearsight-student-resource-card,
+  .clearsight-student-page > section { animation: none; }
+  .clearsight-student-resource-card,
+  .clearsight-pathway-button { transition: none; }
+  .clearsight-student-resource-card:hover,
+  .clearsight-pathway-button:hover { transform: none; }
+}
