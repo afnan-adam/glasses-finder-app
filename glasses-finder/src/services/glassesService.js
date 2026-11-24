@@ -131,7 +131,7 @@ class GlassesService {
         material: 'Stainless steel',
         image_url: 'https://i.warbycdn.com/s/c/dcd848053ff0aea9ae047f120bb8a34e81e7b8a5?quality=80&width=3840'
       }
-    
+    ];
 
     return rawData.map(item => this._createGlassesItem(item));
   }
