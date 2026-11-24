@@ -251,37 +251,71 @@ const GlassesFinder = () => {
 
   // Landing page: explain the product before asking users for information.
   const WelcomeScreen = () => (
-    <main className="min-h-screen clearsight-landing">
+    <main className="min-h-screen clearsight-landing clearsight-editorial">
       <header className="clearsight-nav">
         <a className="clearsight-brand" href="#home" aria-label="ClearSight DC home">
           <span className="clearsight-brand-mark"><Eye size={21} /></span>
           <span>ClearSight <strong>D.C.</strong></span>
         </a>
-        <div className="clearsight-nav-actions"><span className="clearsight-location"><MapPin size={15} /> Washington, D.C.</span><div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div></div>
-      </header>
-
-      <section className="clearsight-hero" id="home">
-        <div className="clearsight-hero-copy">
-          <span className="clearsight-eyebrow">{t('A clearer path to affordable eyewear', 'Un camino más sencillo hacia lentes asequibles')}</span>
-          <h1>{isSpanish ? <>Ver bien debe ajustarse a tu <em>vida</em> y a tu presupuesto.</> : <>Good vision should fit your <em>life</em> and your budget.</>}</h1>
-          <p className="clearsight-hero-description">{t('Explore eyewear options and learn about vision assistance resources in the D.C. area.', 'Explora opciones de lentes y recursos de asistencia visual en Washington, D.C.')}</p>
-          <div className="clearsight-hero-actions">
-            <button
-              onClick={() => setCurrentStep('form')}
-              className="clearsight-primary-cta"
-            >
-              {t('Explore adult options', 'Explorar opciones para adultos')} <span aria-hidden="true">→</span>
-            </button>
-            <span className="clearsight-time-note">{t('A short, guided questionnaire', 'Un breve cuestionario guiado')}</span>
-          </div>
-          <div className="clearsight-value-points">
-            <div><Users size={18} /><span>{t('Household-aware guidance', 'Orientación según tu hogar')}</span></div>
-            <div><DollarSign size={18} /><span>{t('Options across budgets', 'Opciones para distintos presupuestos')}</span></div>
-            <div><MapPin size={18} /><span>{t('D.C.-focused resources', 'Recursos de Washington, D.C.')}</span></div>
+        <div className="clearsight-nav-actions">
+          <span className="clearsight-location"><MapPin size={15} /> Washington, D.C.</span>
+          <div className="clearsight-language-switch" role="group" aria-label="Language / Idioma">
+            <button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button>
+            <span>|</span>
+            <button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button>
           </div>
         </div>
+      </header>
 
-        <div className="clearsight-pathway-card"><span className="clearsight-card-kicker">{t('CHOOSE A PATH', 'ELIGE UNA OPCIÓN')}</span><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('form')}><span className="clearsight-pathway-icon"><Eye size={22}/></span><span><strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong><small>{t('Explore eyewear, insurance and assistance.', 'Explora lentes, seguros y programas de ayuda.')}</small></span><span className="clearsight-pathway-arrow">→</span></button><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('students')}><span className="clearsight-pathway-icon"><Users size={22}/></span><span><strong>{t('K–12 student vision', 'Cuidado visual para estudiantes K–12')}</strong><small>{t('Find free eye exams and glasses for children.', 'Encuentra exámenes de la vista y lentes gratuitos para niños.')}</small></span><span className="clearsight-pathway-arrow">→</span></button></div>
+      <section className="clearsight-editorial-hero" id="home">
+        <div className="clearsight-editorial-copy">
+          <span className="clearsight-editorial-kicker">{t('VISION CARE, MADE MORE ACCESSIBLE', 'CUIDADO VISUAL MÁS ACCESIBLE')}</span>
+          <h1>{isSpanish ? <>Ver bien.<br/><em>Al alcance de todos.</em></> : <>Clear vision.<br/><em>More affordable options.</em></>}</h1>
+          <p>{t('Explore affordable eyewear, local vision-care programs, and resources for children and families across Washington, D.C.', 'Explora lentes asequibles, programas locales de salud visual y recursos para niños y familias en Washington, D.C.')}</p>
+          <div className="clearsight-editorial-note">
+            <span className="clearsight-editorial-rule" />
+            <span>{t('A local guide to help you understand where to start.', 'Una guía local para ayudarte a saber por dónde empezar.')}</span>
+          </div>
+        </div>
+        <div className="clearsight-editorial-photo">
+          <img src="https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840" alt={t('Eyeglass frames available to explore', 'Armazones de anteojos que puedes explorar')} />
+          <div className="clearsight-photo-caption">
+            <span>{t('BETTER VISION STARTS HERE', 'UNA MEJOR VISIÓN COMIENZA AQUÍ')}</span>
+            <strong>{t('Options for real life.', 'Opciones para la vida real.')}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="clearsight-editorial-pathways" aria-labelledby="pathway-heading">
+        <div className="clearsight-section-intro">
+          <span>{t('START WITH WHAT YOU NEED', 'COMIENZA CON LO QUE NECESITAS')}</span>
+          <h2 id="pathway-heading">{t('How can we help?', '¿Cómo podemos ayudarte?')}</h2>
+          <p>{t('Choose the path that best fits you or your family.', 'Elige la opción que mejor se adapte a ti o a tu familia.')}</p>
+        </div>
+        <div className="clearsight-editorial-pathway-grid">
+          <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('form')}>
+            <span className="clearsight-editorial-pathway-number">01</span>
+            <span className="clearsight-editorial-pathway-content">
+              <strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong>
+              <small>{t('Explore eyewear, insurance, and possible assistance.', 'Explora lentes, seguros y posibles programas de ayuda.')}</small>
+            </span>
+            <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button type="button" className="clearsight-editorial-pathway" onClick={() => setCurrentStep('students')}>
+            <span className="clearsight-editorial-pathway-number">02</span>
+            <span className="clearsight-editorial-pathway-content">
+              <strong>{t('Vision care for children', 'Cuidado visual para niños')}</strong>
+              <small>{t('Find school and community programs for K–12 students.', 'Encuentra programas escolares y comunitarios para estudiantes de K–12.')}</small>
+            </span>
+            <span className="clearsight-editorial-pathway-arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section className="clearsight-editorial-how" aria-label={t('How ClearSight works', 'Cómo funciona ClearSight')}>
+        <div><span>01</span><strong>{t('Tell us what you need', 'Cuéntanos qué necesitas')}</div>
+        <div><span>02</span><strong>{t('Explore relevant options', 'Explora opciones relevantes')}</div>
+        <div><span>03</span><strong>{t('Confirm details with providers', 'Confirma los detalles con los proveedores')}</div>
       </section>
 
       <footer className="clearsight-landing-footer">
