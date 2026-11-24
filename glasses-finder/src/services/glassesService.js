@@ -112,8 +112,9 @@ class GlassesService {
         numeric_price: 145,
         features: 'Titanium frame, progressive lenses, lightweight design',
         url: 'https://www.warbyparker.com/eyeglasses/chamberlain/brushed-navy',
-        frame_style: 'rectangular',  // Chamberlain is rectangular, not aviator
-        material: 'Titanium'
+        frame_style: 'rectangular',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/9410cfbfee0945c81a82b7589f1a5430bc8e536d'
       },
       {
         site: 'Warby Parker',
@@ -151,8 +152,9 @@ class GlassesService {
         numeric_price: 25,
         features: 'Ultra-budget frame, basic lenses, essential eyewear',
         url: 'https://www.warbyparker.com/eyeglasses/caldwell/crystal-clear',
-        frame_style: 'round',  // Caldwell is round
-        material: 'Plastic'
+        frame_style: 'rectangular',
+        material: 'Stainless Steel',
+        image_url: 'https://i.warbycdn.com/s/c/dcfbbe8d1d7fe55af1be15c0e365b28a83b4e83d?quality=100&width=2048'
       },
       // Additional Warby Parker frames across price ranges
     ];
