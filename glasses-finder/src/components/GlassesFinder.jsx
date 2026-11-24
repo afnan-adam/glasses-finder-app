@@ -24,6 +24,8 @@ const GlassesFinder = () => {
   const [eligibilityData, setEligibilityData] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const [generatedImages, setGeneratedImages] = useState(new Map());
+  const [studentResourceIndex, setStudentResourceIndex] = useState(0);
+  const [adultResourceIndex, setAdultResourceIndex] = useState(0);
 
   // Income ranges for MVP dropdown
   const incomeRanges = [
@@ -307,17 +309,35 @@ const GlassesFinder = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">{t('Vision support for K–12 students', 'Apoyo visual para estudiantes K–12')}</h1>
             <p className="text-slate-600 mt-3 leading-relaxed">{t('Explore school-based programs and services that may help children access eye exams and prescription glasses at no cost. Access rules vary by program.', 'Explora programas escolares y servicios que pueden ayudar a los niños a recibir exámenes de la vista y anteojos recetados sin costo. Los requisitos varían según el programa.')}</p>
           </div>
-          <div className="clearsight-student-carousel mt-8" aria-label={t('Student vision resources', 'Recursos de salud visual para estudiantes')}>
-            {resources.map((resource, index) => (
-              <article key={resource.name} className="clearsight-student-resource-card" style={{ animationDelay: `${index * 110}ms` }}>
-                <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
-                <h2 className="mt-2 text-xl font-semibold text-slate-900">{resource.name}</h2>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.description}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm">{resource.phone && <a className="text-purple-700 font-medium" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}{resource.email && <a className="text-purple-700 font-medium" href={'mailto:' + resource.email}>{resource.email}</a>}<a className="text-purple-700 font-medium" href={resource.website} target="_blank" rel="noopener noreferrer">{t('Program details', 'Detalles del programa')} ↗</a></div>
-                <p className="mt-4 text-xs text-slate-400">{t('Information checked November 24, 2026', 'Información verificada el 24 de noviembre de 2026')}</p>
-              </article>
-            ))}
+          <div className="mt-8 max-w-3xl" aria-label={t('Student vision resources', 'Recursos de salud visual para estudiantes')}>
+            {(() => {
+              const resource = resources[studentResourceIndex];
+              return (
+                <article key={resource.name} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-live="polite">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
+                  <h2 className="mt-2 text-xl font-semibold text-slate-900 md:text-2xl">{resource.name}</h2>
+                  <p className="mt-4 leading-relaxed text-slate-600">{resource.description}</p>
+                  <div className="mt-5 rounded-xl bg-purple-50 p-4">
+                    <p className="text-sm font-semibold text-slate-900">{t('Who can access this?', '¿Quién puede acceder?')}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.eligibility}</p>
+                  </div>
+                  <div className="mt-5 flex flex-wrap gap-4 text-sm">
+                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
+                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
+                    <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">{t('Official program details', 'Detalles oficiales del programa')} ↗</a>
+                  </div>
+                  <p className="mt-5 text-xs text-slate-400">{t('Information checked November 24, 2026', 'Información verificada el 24 de noviembre de 2026')}</p>
+                </article>
+              );
+            })()}
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <button type="button" onClick={() => setStudentResourceIndex(index => Math.max(0, index - 1))} disabled={studentResourceIndex === 0} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-40">← {t('Previous', 'Anterior')}</button>
+              <span className="text-sm tabular-nums text-slate-500" aria-live="polite">{studentResourceIndex + 1} {t('of', 'de')} {resources.length}</span>
+              <button type="button" onClick={() => setStudentResourceIndex(index => Math.min(resources.length - 1, index + 1))} disabled={studentResourceIndex === resources.length - 1} className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-800 disabled:cursor-not-allowed disabled:opacity-40">{t('Next', 'Siguiente')} →</button>
+            </div>
+            <div className="mt-3 flex justify-center gap-2" aria-hidden="true">
+              {resources.map((resource, index) => <span key={resource.name} className={`h-1.5 w-8 rounded-full ${index === studentResourceIndex ? 'bg-purple-700' : 'bg-slate-200'}`} />)}
+            </div>
           </div>
           <div className="mt-8 rounded-2xl bg-purple-50 border border-purple-100 p-5"><h2 className="font-semibold text-slate-900">{t('Not sure where to start?', '¿No sabes por dónde empezar?')}</h2><p className="text-sm text-slate-700 mt-2">{t('Ask your child’s school nurse or counselor whether the school participates in a vision program. For All Children See, review the program criteria and contact the program about participating providers.', 'Pregunta a la enfermera escolar o al consejero si la escuela participa en un programa de salud visual. Para All Children See, revisa los requisitos y consulta sobre los profesionales participantes.')}</p></div>
         </section>
@@ -605,7 +625,7 @@ const GlassesFinder = () => {
           </section>
         )}
 
-        {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students') && (
+        {eligibilityData?.resources?.some(resource => resource.audience !== 'K–12 students' && resource.name !== 'Warby Parker Pupils Project') && (
           <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
             <div className="mb-5">
               <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">Additional resources</p>
@@ -614,23 +634,38 @@ const GlassesFinder = () => {
                 These services have different coverage and access requirements. They are not a determination that you qualify. Contact each provider to confirm current availability, costs, network participation and any required authorization.
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {eligibilityData.resources.filter(resource => resource.audience !== 'K–12 students').map((resource) => (
-                <article key={resource.name} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-slate-900">{resource.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{resource.eligibility}</p>
-                  {resource.address && <p className="mt-3 text-sm text-slate-700">{resource.address}</p>}
-                  <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                    {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
-                    {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
-                    {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Official program details ↗</a>}
+            {(() => {
+              const resources = eligibilityData.resources.filter(resource => resource.audience !== 'K–12 students' && resource.name !== 'Warby Parker Pupils Project');
+              const resource = resources[Math.min(adultResourceIndex, resources.length - 1)];
+              return (
+                <>
+                  <article key={resource.name} className="max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-live="polite">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-purple-700">{resource.category}</p>
+                    <h3 className="mt-2 text-xl font-semibold text-slate-900 md:text-2xl">{resource.name}</h3>
+                    <p className="mt-4 leading-relaxed text-slate-600">{resource.description}</p>
+                    <div className="mt-5 rounded-xl bg-purple-50 p-4">
+                      <p className="text-sm font-semibold text-slate-900">Who can access this?</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.eligibility}</p>
+                    </div>
+                    {resource.address && <p className="mt-4 text-sm text-slate-700">{resource.address}</p>}
+                    <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
+                      {resource.phone && <a className="font-medium text-purple-700 hover:underline" href={'tel:' + resource.phone.replace(/[^0-9+]/g, '')}>{resource.phone}</a>}
+                      {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
+                      {resource.website && <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">Official program details ↗</a>}
+                    </div>
+                    <p className="mt-5 text-xs text-slate-400">Information checked November 24, 2026</p>
+                  </article>
+                  <div className="mt-4 flex max-w-3xl items-center justify-between gap-3">
+                    <button type="button" onClick={() => setAdultResourceIndex(index => Math.max(0, index - 1))} disabled={adultResourceIndex === 0} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 disabled:cursor-not-allowed disabled:opacity-40">← Previous</button>
+                    <span className="text-sm tabular-nums text-slate-500" aria-live="polite">{Math.min(adultResourceIndex, resources.length - 1) + 1} of {resources.length}</span>
+                    <button type="button" onClick={() => setAdultResourceIndex(index => Math.min(resources.length - 1, index + 1))} disabled={adultResourceIndex >= resources.length - 1} className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-800 disabled:cursor-not-allowed disabled:opacity-40">Next →</button>
                   </div>
-                  <p className="mt-3 text-xs text-slate-400">Information checked November 24, 2026</p>
-                </article>
-              ))}
-            </div>
+                  <div className="mt-3 flex max-w-3xl justify-center gap-2" aria-hidden="true">
+                    {resources.map((item, index) => <span key={item.name} className={`h-1.5 w-8 rounded-full ${index === Math.min(adultResourceIndex, resources.length - 1) ? 'bg-purple-700' : 'bg-slate-200'}`} />)}
+                  </div>
+                </>
+              );
+            })()}
           </section>
         )}
         
