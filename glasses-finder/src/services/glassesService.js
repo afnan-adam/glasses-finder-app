@@ -80,75 +80,57 @@ class GlassesService {
         site: 'Warby Parker',
         name: 'Felix',
         numeric_price: 95,
-        features: 'Square acetate frame, modern design, comfortable fit',
-        url: 'https://www.warbyparker.com/eyeglasses/felix/jet-black',
+        price_checked_at: '2026-11-24',
+        features: 'Square acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/felix/pacific-crystal',
         frame_style: 'square',
-        material: 'Acetate'
+        material: 'Acetate',
+        image_url: 'https://d3i1ct304nu39.cloudfront.net/s/c/68853df02b3332b35c9db0581caa6a8098e67352.png?quality=80&width=3840'
       },
       {
         site: 'Warby Parker',
         name: 'Hardy',
         numeric_price: 95,
-        features: 'Rectangular acetate frame, classic styling, durable construction',
-        url: 'https://www.warbyparker.com/eyeglasses/hardy/whiskey-tortoise',
+        price_checked_at: '2026-11-24',
+        features: 'Rectangular acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/hardy/jet-black',
         frame_style: 'rectangular',
-        material: 'Acetate'
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/a9e1bf621b38b473e8112e463b00181c7932af1d'
       },
       {
         site: 'Warby Parker',
         name: 'Percey',
         numeric_price: 95,
-        features: 'Metal frame, blue light filtering, adjustable nose pads',
-        url: 'https://www.warbyparker.com/eyeglasses/percey/polished-gold',
-        frame_style: 'round',  // Percey is round, not square
-        material: 'Metal'
+        price_checked_at: '2026-11-24',
+        features: 'Round acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/percey/jet-black-matte',
+        frame_style: 'round',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/s/c/e9a58308f0c5645f237fcd0a2d95ded61a65d29b'
       },
       {
         site: 'Warby Parker',
         name: 'Chamberlain',
-        numeric_price: 145,
-        features: 'Titanium frame, progressive lenses, lightweight design',
-        url: 'https://www.warbyparker.com/eyeglasses/chamberlain/brushed-navy',
-        frame_style: 'rectangular',  // Chamberlain is rectangular, not aviator
-        material: 'Titanium'
+        numeric_price: 95,
+        price_checked_at: '2026-11-24',
+        features: 'Acetate frame. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/chamberlain/crystal',
+        frame_style: 'rectangular',
+        material: 'Acetate',
+        image_url: 'https://i.warbycdn.com/cdn-cgi/image/width%3D3840%2Cquality%3D80%2Cformat%3Dauto/s/c/9410cfbfee0945c81a82b7589f1a5430bc8e536d'
       },
       {
         site: 'Warby Parker',
         name: 'Rafael',
         numeric_price: 145,
-        features: 'Rounded lenses, slender-yet-sturdy construction, endlessly versatile pairing',
-        url: 'https://www.warbyparker.com/eyeglasses/rafael/jet-black',
+        price_checked_at: '2026-11-24',
+        features: 'Stainless-steel frame with acetate temple tips. Starting price includes single-vision prescription lenses.',
+        url: 'https://www.warbyparker.com/eyeglasses/rafael/polished-gold',
         frame_style: 'round',
-        material: 'Stainless Steel'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Durand',
-        numeric_price: 45,
-        features: 'Basic acetate frame, single vision, durable construction',
-        url: 'https://www.warbyparker.com/eyeglasses/durand/jet-black',
-        frame_style: 'square',  // Durand is square
-        material: 'Acetate'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Burke',
-        numeric_price: 35,
-        features: 'Simple plastic frame, reading glasses, comfortable fit',
-        url: 'https://www.warbyparker.com/eyeglasses/burke/matte-black',
-        frame_style: 'rectangular',  // Burke is rectangular
-        material: 'Plastic'
-      },
-      {
-        site: 'Warby Parker',
-        name: 'Caldwell',
-        numeric_price: 25,
-        features: 'Ultra-budget frame, basic lenses, essential eyewear',
-        url: 'https://www.warbyparker.com/eyeglasses/caldwell/crystal-clear',
-        frame_style: 'round',  // Caldwell is round
-        material: 'Plastic'
-      },
-      // Additional Warby Parker frames across price ranges
+        material: 'Stainless steel',
+        image_url: 'https://i.warbycdn.com/s/c/dcd848053ff0aea9ae047f120bb8a34e81e7b8a5?quality=80&width=3840'
+      }
     ];
 
     return rawData.map(item => this._createGlassesItem(item));
@@ -177,8 +159,8 @@ class GlassesService {
     return Object.freeze({
       ...item,
       id: this._generateId(item.site, item.name),
-      price: item.price || `$${item.numeric_price}`,
-      image_url: item.image_url || this._getDefaultImage(item.frame_style),
+      price: item.price || `From ${item.numeric_price}`,
+      image_url: item.image_url || null,
       url: item.url || '#',
       created_at: new Date().toISOString()
     });
@@ -212,43 +194,86 @@ class GlassesService {
    * @returns {Object} D.C. resources
    */
   _initializeDCResources() {
+    // Programs below are sourced from official provider/government pages.
+    // These are navigation resources, not individual eligibility determinations.
     return Object.freeze({
-      medicaid_providers: Object.freeze([
+      verified_resources: Object.freeze([
         Object.freeze({
-          name: 'DC Medicaid Vision Benefits',
-          description: 'Covers eye exams and glasses for Medicaid recipients',
-          phone: '1-800-635-1663',
-          website: 'https://dhcf.dc.gov'
+          name: 'Prevention of Blindness Society — Affordable Eyeglasses Clinic',
+          category: 'Low-cost eyeglasses',
+          description: 'Basic prescription eyeglasses start at $40, frames included. Requires a current eyeglasses prescription less than one year old and an appointment. Additional lens options cost extra. No walk-ins.',
+          eligibility: 'Open to people who have a current prescription and cannot afford the full cost. Accepted DC Medicaid plans may cover eligible glasses at no cost.',
+          address: '415 2nd Street NE, Washington, DC 20002',
+          phone: '(202) 234-1010, option 1',
+          website: 'https://www.youreyes.org/affordable-eyeglasses-clinic/',
+          source_checked_at: '2026-11-24'
         }),
         Object.freeze({
-          name: 'Martha\'s Table Eye Care',
-          description: 'Free eye exams and glasses for low-income families',
-          address: '2114 14th St NW, Washington, DC 20009',
-          phone: '(202) 328-6608'
-        })
-      ]),
-      discount_programs: Object.freeze([
+          name: 'DC Medicaid — Vision Benefits',
+          category: 'Public health coverage',
+          description: 'The 2026 DC Medicaid Fee-for-Service handbook lists annual eye exams and corrective lenses as needed for members under 21. Members age 21 and older receive one pair of eyeglasses every two years, with exceptions for lost glasses or a prescription change greater than 0.5 diopter.',
+          eligibility: 'For enrolled DC Medicaid members. Managed-care members should confirm their plan rules and network. The handbook benefit summary is not an individual coverage determination.',
+          phone: '(202) 442-5988',
+          website: 'https://dhcf.dc.gov/publication/medicaid-fee-service-member-handbook',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'DC Health Link — Individual Vision Plans (VSP)',
+          category: 'Optional vision insurance',
+          description: 'DC residents can purchase VSP individual vision coverage directly from VSP. Published options include annual exams, lenses and frames, with plan-specific copays and frame allowances. Premiums apply.',
+          eligibility: 'Available to DC residents who choose to purchase an individual vision plan. This is insurance for purchase, not free assistance.',
+          phone: '(855) 397-2013',
+          website: 'https://www.dchealthlink.com/vision',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'Washington Lions Club — Assistance Services',
+          category: 'Potential financial assistance',
+          description: 'The club states that it may assist low- and moderate-income people in the Washington area with purchasing eyeglasses. Public eligibility details and award amounts are not specified online; contact the club to ask about current availability.',
+          eligibility: 'Low- and moderate-income people in the Washington area; individual approval and current funding must be confirmed directly.',
+          email: 'info@washingtonlions.org',
+          website: 'https://www.washingtonlions.org/projects/assistance.php',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'Vision To Learn — Washington, D.C.',
+          audience: 'K–12 students',
+          category: 'School-based vision care',
+          description: 'Provides no-cost vision screenings, eye exams, and prescription glasses to students in low-income communities through school partnerships in Washington, D.C.',
+          eligibility: 'Services are delivered through participating schools and community partners. Families should ask their child’s school about participation or contact the D.C. program team to learn about current access.',
+          phone: '(703) 843-0309',
+          email: 'washingtondc@visiontolearn.org',
+          website: 'https://visiontolearn.org/where-we-work/washington-dc/',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'Glasses4Scholars — Prevention of Blindness Society',
+          audience: 'K–12 students',
+          category: 'School and nonprofit partnership',
+          description: 'Provides eye exams and prescription eyeglasses to children through participating schools and nonprofit organizations. A volunteer licensed eye doctor examines students, children select frames, and glasses are delivered to the host site.',
+          eligibility: 'Families should ask their school or community organization whether it participates. This is not a general walk-in or direct family application program; availability depends on host partners and volunteer capacity.',
+          phone: '(202) 234-1010 ext. 225',
+          email: 'cwood@youreyes.org',
+          website: 'https://www.youreyes.org/programs/kids/',
+          source_checked_at: '2026-11-24'
+        }),
+        Object.freeze({
+          name: 'All Children See',
+          audience: 'K–12 students',
+          category: 'No-cost eye exams',
+          description: 'Connects eligible children with participating ophthalmologists for no-cost eye examinations. Participating providers serve the D.C., Maryland, and Virginia region.',
+          eligibility: 'For children under 18 with a failed or incomplete vision screening, or another eye concern, whose family is uninsured or unable to afford the copay. Confirm program criteria and provider availability before scheduling.',
+          website: 'https://aapos.org/webdev/what-we-do/all-children-see/about-acs',
+          source_checked_at: '2026-11-24'
+        }),
         Object.freeze({
           name: 'Warby Parker Pupils Project',
-          description: 'Provides glasses to students and low-income individuals',
-          eligibility: 'Students and income-qualified individuals'
-        }),
-        Object.freeze({
-          name: 'OneSight',
-          description: 'Mobile clinics providing free eye care in D.C.',
-          website: 'https://onesight.org'
-        })
-      ]),
-      local_stores: Object.freeze([
-        Object.freeze({
-          name: 'LensCrafters - Dupont Circle',
-          address: '1150 Connecticut Ave NW, Washington, DC 20036',
-          phone: '(202) 822-2020'
-        }),
-        Object.freeze({
-          name: 'Pearle Vision - Columbia Heights',
-          address: '3100 14th St NW, Washington, DC 20010',
-          phone: '(202) 387-7327'
+          audience: 'K–12 students',
+          category: 'School-based children’s program',
+          description: 'Warby Parker partners with local organizations and government agencies to provide vision screenings, eye exams and free prescription glasses to schoolchildren through school-based programs.',
+          eligibility: 'Not a direct individual application or general adult low-income discount. Access is through participating school and community partners; DC availability should be confirmed with Warby Parker or the school district.',
+          website: 'https://www.warbyparker.com/pupils-project',
+          source_checked_at: '2026-11-24'
         })
       ])
     });
@@ -360,20 +385,9 @@ class GlassesService {
    * @param {string} tier - Eligibility tier
    * @returns {Array} Relevant resources
    */
-  _getRelevantResources(tier) {
-    const allResources = [
-      ...this._dcResources.discount_programs,
-      ...this._dcResources.local_stores
-    ];
-
-    if (tier === 'medicaid_eligible') {
-      return [
-        ...this._dcResources.medicaid_providers,
-        ...allResources
-      ];
-    }
-
-    return allResources;
+  _getRelevantResources() {
+    // Do not filter real-world resources using the app's unverified income tiers.
+    return [...this._dcResources.verified_resources];
   }
 
   /**
@@ -530,100 +544,13 @@ class GlassesService {
   formatEligibilityForComponent(eligibility) {
     if (!eligibility) return null;
 
-    const income = eligibility.annualIncome;
-    const size = eligibility.householdSize;
-    
-    const federalPovertyLevel = 15060 + (size - 1) * 5380;
-    const percentage = (income / federalPovertyLevel) * 100;
-    
-    if (percentage <= 200) {
-      return this._createEligibilityResponse('High Assistance', 
-        'You may qualify for free or low-cost glasses through D.C. health programs!',
-        'text-green-600 bg-green-50 border-green-200',
-        this._getHighAssistancePrograms()
-      );
-    } 
-    
-    if (percentage <= 400) {
-      return this._createEligibilityResponse('Moderate Assistance', 
-        'You may qualify for discounted glasses and vision care.',
-        'text-blue-600 bg-blue-50 border-blue-200',
-        this._getModerateAssistancePrograms()
-      );
-    }
-    
-    return this._createEligibilityResponse('Standard Options', 
-      'Check out our affordable glasses options below!',
-      'text-purple-600 bg-purple-50 border-purple-200'
-    );
-  }
-
-  /**
-   * Create eligibility response object
-   * @private
-   */
-  _createEligibilityResponse(level, message, color, programs = []) {
     return Object.freeze({
-      level,
-      message,
-      color,
-      showPrograms: programs.length > 0,
-      programs: Object.freeze(programs)
+      level: 'Coverage needs confirmation',
+      message: 'Household income and ZIP code alone cannot determine vision coverage or program eligibility. Coverage depends on age, Medicaid or insurance plan, provider participation, prescription needs, and plan-specific rules. Use the official plan or provider to confirm benefits.',
+      color: 'text-blue-700 bg-blue-50 border-blue-200',
+      showPrograms: false,
+      programs: Object.freeze([])
     });
-  }
-
-  /**
-   * Get high assistance programs
-   * @private
-   */
-  _getHighAssistancePrograms() {
-    return [
-      {
-        name: 'DC Medicaid Vision Benefits',
-        contact: '(202) 727-5355',
-        website: 'dhcf.dc.gov',
-        description: 'Comprehensive eye exams and glasses coverage for Medicaid recipients'
-      },
-      {
-        name: 'Warby Parker Pupils Project',
-        contact: '(888) 492-7297',
-        website: 'warbyparker.com/pupils-project',
-        description: 'Free glasses for students in need through school partnerships and community programs'
-      },
-      {
-        name: 'Unity Health Care Vision Services',
-        contact: '(202) 469-4699',
-        website: 'unityhealthcare.org',
-        description: 'Sliding fee scale for low-income residents, includes eye exams and glasses'
-      },
-      {
-        name: 'Lions Club SightFirst Program',
-        contact: '(202) 331-7589',
-        website: 'dclions.org',
-        description: 'Free eye screenings and glasses for qualifying low-income individuals'
-      }
-    ];
-  }
-
-  /**
-   * Get moderate assistance programs
-   * @private
-   */
-  _getModerateAssistancePrograms() {
-    return [
-      {
-        name: 'DC Health Link Vision Plans',
-        contact: '(855) 532-5465',
-        website: 'dchealthlink.com',
-        description: 'Subsidized vision insurance plans with glasses benefits'
-      },
-      {
-        name: 'Walmart Vision Center',
-        contact: '(202) 635-1066',
-        website: 'walmart.com/vision',
-        description: 'Low-cost eye exams starting at $75, affordable glasses from $16'
-      }
-    ];
   }
 
   /**
