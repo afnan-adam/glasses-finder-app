@@ -363,17 +363,16 @@ const GlassesFinder = () => {
 
       <section className="clearsight-form-layout">
         <div className="clearsight-form-intro">
-          <span className="clearsight-eyebrow">LET'S GET STARTED</span>
-          <h1>A few details help us point you in the right direction.</h1>
+          <span className="clearsight-eyebrow">{t("LET'S GET STARTED", "COMENCEMOS")}</span>
+          <h1>{t('A few details help us point you in the right direction.', 'Unos datos nos ayudan a orientarte.')}</h1>
           <p>
-            Answer four quick questions so we can show you D.C. vision resources
-            and eyewear options to explore.
+            {t('Answer four quick questions so we can show you D.C. vision resources and eyewear options to explore.', 'Responde cuatro preguntas breves para mostrarte recursos visuales y opciones de lentes en D.C.')}
           </p>
           <div className="clearsight-form-progress" aria-label="Questionnaire progress">
             <span className="clearsight-progress-active"></span>
             <span></span><span></span><span></span>
           </div>
-          <small>Four questions · Your answers shape the results</small>
+          <small>{t('Four questions · Your answers shape the results', 'Cuatro preguntas · Tus respuestas orientan los resultados')}</small>
           <div className="clearsight-privacy-note">
             <Info size={17} />
             <span>Your answers are used to shape the results shown in this session.</span>
@@ -383,73 +382,73 @@ const GlassesFinder = () => {
         <div className="clearsight-form-card">
           <div className="clearsight-form-card-heading">
             <span className="clearsight-form-step">01 — HOUSEHOLD</span>
-            <h2>Tell us about your household</h2>
-            <p>These details help us estimate which assistance resources may be relevant.</p>
+            <h2>{t('Tell us about your household', 'Cuéntanos sobre tu hogar')}</h2>
+            <p>{t('These details help us estimate which assistance resources may be relevant.', 'Estos datos nos ayudan a identificar recursos de asistencia que podrían ser relevantes.')}</p>
           </div>
 
           <form onSubmit={handleFormSubmit}>
             <div className="clearsight-field">
-              <label htmlFor="household-size"><Users size={17} /> Household size</label>
+              <label htmlFor="household-size"><Users size={17} /> {t('Household size', 'Tamaño del hogar')}</label>
               <select
                 id="household-size"
                 value={formData.householdSize}
                 onChange={(e) => setFormData({...formData, householdSize: e.target.value})}
                 required
               >
-                <option value="">Select household size</option>
+                <option value="">{t('Select household size', 'Selecciona el tamaño del hogar')}</option>
                 {[1,2,3,4,5,6,7,8].map(size => (
-                  <option key={size} value={size}>{size} person{size > 1 ? 's' : ''}</option>
+                  <option key={size} value={size}>{isSpanish ? `${size} ${size === 1 ? 'persona' : 'personas'}` : `${size} person${size > 1 ? 's' : ''}`}</option>
                 ))}
               </select>
-              <small>Include everyone in your household.</small>
+              <small>{t('Include everyone in your household.', 'Incluye a todas las personas de tu hogar.')}</small>
             </div>
 
             <div className="clearsight-field">
-              <label htmlFor="annual-income"><DollarSign size={17} /> Annual household income</label>
+              <label htmlFor="annual-income"><DollarSign size={17} /> {t('Annual household income', 'Ingresos anuales del hogar')}</label>
               <select
                 id="annual-income"
                 value={formData.income}
                 onChange={(e) => setFormData({...formData, income: e.target.value})}
                 required
               >
-                <option value="">Choose an income range</option>
+                <option value="">{t('Choose an income range', 'Selecciona un rango de ingresos')}</option>
                 {incomeRanges.map((range, index) => (
                   <option key={index} value={range.value}>{range.label}</option>
                 ))}
               </select>
-              <small>Select the range closest to your household's yearly income.</small>
+              <small>{t("Select the range closest to your household's yearly income.", 'Selecciona el rango más cercano a los ingresos anuales de tu hogar.')}</small>
             </div>
 
             <div className="clearsight-form-divider"></div>
             <div className="clearsight-form-card-heading clearsight-form-secondary-heading">
               <span className="clearsight-form-step">02 — LOCATION & BUDGET</span>
-              <h2>What are you looking for?</h2>
+              <h2>{t('What are you looking for?', '¿Qué estás buscando?')}</h2>
               <p>We'll use these details to tailor the local resources and frames you see.</p>
             </div>
 
             <div className="clearsight-field">
-              <label htmlFor="dc-zip"><MapPin size={17} /> D.C. ZIP code</label>
+              <label htmlFor="dc-zip"><MapPin size={17} /> {t('D.C. ZIP code', 'Código postal de D.C.')}</label>
               <select
                 id="dc-zip"
                 value={formData.zipCode}
                 onChange={(e) => setFormData({...formData, zipCode: e.target.value})}
                 required
               >
-                <option value="">Choose your ZIP code</option>
+                <option value="">{t('Choose your ZIP code', 'Selecciona tu código postal')}</option>
                 {dcZipCodes.map(zip => <option key={zip} value={zip}>{zip}</option>)}
               </select>
               <small>Choose the D.C. ZIP code where you live.</small>
             </div>
 
             <div className="clearsight-field">
-              <label htmlFor="glasses-budget"><DollarSign size={17} /> Budget for glasses</label>
+              <label htmlFor="glasses-budget"><DollarSign size={17} /> {t('Budget for glasses', 'Presupuesto para lentes')}</label>
               <select
                 id="glasses-budget"
                 value={formData.budget}
                 onChange={(e) => setFormData({...formData, budget: e.target.value})}
                 required
               >
-                <option value="">Choose your budget</option>
+                <option value="">{t('Choose your budget', 'Selecciona tu presupuesto')}</option>
                 {budgetRanges.map((range, index) => (
                   <option key={index} value={range.value}>{range.label}</option>
                 ))}
@@ -462,7 +461,7 @@ const GlassesFinder = () => {
                 Back
               </button>
               <button type="submit" className="clearsight-primary-cta">
-                See my options <span aria-hidden="true">→</span>
+                {t('See my options', 'Ver mis opciones')} <span aria-hidden="true">→</span>
               </button>
             </div>
           </form>
