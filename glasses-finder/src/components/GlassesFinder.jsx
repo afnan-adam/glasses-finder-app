@@ -519,25 +519,25 @@ const GlassesFinder = () => {
       <div className="min-h-screen bg-gray-50">
         <div className="bg-gradient-to-r from-violet-700 to-purple-600 text-white py-8 clearsight-results-header">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Your Glasses Options</h1>
+                <h1 className="text-3xl font-bold mb-2">{t('Your Glasses Options', 'Tus opciones de lentes')}</h1>
                 {formData.budget && (
                   <p className="text-purple-100 mb-1">
-                    Your selected budget: {budgetRanges.find(b => b.value === formData.budget)?.label}
+                    {t('Your selected budget:', 'Tu presupuesto seleccionado:')} {budgetRanges.find(b => b.value === formData.budget)?.label}
                   </p>
                 )}
-                <p className="text-purple-100">Found {filteredGlasses.length} glasses matching your criteria</p>
+                <p className="text-purple-100">{isSpanish ? `Encontramos ${filteredGlasses.length} opciones de lentes para ti` : `Found ${filteredGlasses.length} glasses matching your criteria`}</p>
                 <p className="text-purple-200 text-sm mt-2">
-                  Coverage is not determined by income alone. Confirm benefits with your insurer or Medicaid plan.
+                  {t('Coverage is not determined by income alone. Confirm benefits with your insurer or Medicaid plan.', 'La cobertura no se determina únicamente por los ingresos. Confirma los beneficios con tu aseguradora o plan de Medicaid.')}
                 </p>
               </div>
-              <button
+              <div className="clearsight-results-actions"><div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div><button
                 onClick={() => setCurrentStep('form')}
                 className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
               >
-                Edit Search
-              </button>
+                {t('Edit Search', 'Editar búsqueda')}
+              </button></div>
             </div>
           </div>
         </div>
@@ -555,7 +555,7 @@ const GlassesFinder = () => {
                 <div className="mt-6">
                   <h3 className="font-semibold text-lg mb-4 flex items-center">
                     <Info className="w-5 h-5 mr-2" />
-                    Available Assistance Programs
+                    {t('Available Assistance Programs', 'Programas de asistencia disponibles')}
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {eligibility.programs.map((program, index) => (
@@ -592,8 +592,8 @@ const GlassesFinder = () => {
         {budgetGuidance && (
           <section className="max-w-6xl mx-auto px-4 pt-6" aria-labelledby="budget-guidance-heading">
             <div className="rounded-2xl border border-purple-200 bg-purple-50 p-6 md:p-7">
-              <p className="text-xs font-semibold uppercase tracking-wider text-purple-700">Your budget guide</p>
-              <h2 id="budget-guidance-heading" className="mt-2 text-xl font-bold text-slate-900 md:text-2xl">{budgetGuidance.title}</h2>
+              <p className="text-xs font-semibold uppercase tracking-wider text-purple-700">{t('Your budget guide', 'Tu guía de presupuesto')}</p>
+              <h2 id="budget-guidance-heading" className="mt-2 text-xl font-bold text-slate-900 md:text-2xl">{isSpanish ? 'Guía según tu presupuesto' : budgetGuidance.title}</h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">{budgetGuidance.body}</p>
               <a
                 href="https://www.youreyes.org/affordable-eyeglasses-clinic/"
@@ -612,7 +612,7 @@ const GlassesFinder = () => {
           <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="student-vision-heading">
             <div className="mb-5">
               <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">For families and caregivers</p>
-              <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">Free vision support for K–12 students</h2>
+              <h2 id="student-vision-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Free vision support for K–12 students', 'Apoyo visual gratuito para estudiantes K–12')}</h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
                 Some services are arranged through a participating school or nonprofit; others connect families with participating eye doctors. Check the access steps before contacting a provider.
               </p>
@@ -640,7 +640,7 @@ const GlassesFinder = () => {
           <section className="max-w-6xl mx-auto px-4 py-6" aria-labelledby="vision-resources-heading">
             <div className="mb-5">
               <p className="text-sm font-semibold uppercase tracking-wide text-purple-700">Additional resources</p>
-              <h2 id="vision-resources-heading" className="mt-1 text-2xl font-bold text-slate-900">Vision care and eyewear assistance in D.C.</h2>
+              <h2 id="vision-resources-heading" className="mt-1 text-2xl font-bold text-slate-900">{t('Vision care and eyewear assistance in D.C.', 'Atención visual y ayuda para obtener lentes en D.C.')}</h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
                 These services have different coverage and access requirements. They are not a determination that you qualify. Contact each provider to confirm current availability, costs, network participation and any required authorization.
               </p>
@@ -669,7 +669,7 @@ const GlassesFinder = () => {
           <div className="flex flex-wrap gap-4 mb-8 bg-white p-6 rounded-xl shadow-sm">
             <div className="flex items-center space-x-2">
               <Filter className="w-5 h-5 text-gray-500" />
-              <span className="font-semibold text-gray-700">Filters:</span>
+              <span className="font-semibold text-gray-700">{t('Filters:', 'Filtros:')}</span>
             </div>
             
             <select
@@ -677,7 +677,7 @@ const GlassesFinder = () => {
               onChange={(e) => setFilters({...filters, priceRange: e.target.value})}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
             >
-              <option value="all">All Prices</option>
+              <option value="all">{t('All Prices', 'Todos los precios')}</option>
               <option value="under50">Under $50</option>
               <option value="50-100">$50 - $100</option>
               <option value="over100">Over $100</option>
@@ -688,7 +688,7 @@ const GlassesFinder = () => {
               onChange={(e) => setFilters({...filters, frameStyle: e.target.value})}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
             >
-              <option value="all">All Styles</option>
+              <option value="all">{t('All Styles', 'Todos los estilos')}</option>
               <option value="round">Round</option>
               <option value="square">Square</option>
               <option value="rectangular">Rectangular</option>
@@ -761,8 +761,8 @@ const GlassesFinder = () => {
           {filteredGlasses.length === 0 && (
             <div className="text-center py-12">
               <Eye className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">No glasses match your filters</h3>
-              <p className="text-gray-500">Try adjusting your price range or frame style filters</p>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">{t('No glasses match your filters', 'Ningún lente coincide con tus filtros')}</h3>
+              <p className="text-gray-500">{t('Try adjusting your price range or frame style filters', 'Prueba cambiar el rango de precios o el estilo de armazón')}</p>
             </div>
           )}
         </div>
