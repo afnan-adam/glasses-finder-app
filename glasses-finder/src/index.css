@@ -1,15 +1,139 @@
 @import "tailwindcss";
 
-/* Premium loading shimmer animation */
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
+/* ClearSight DC — accessible, purple-first visual foundation */
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #241d35;
+  background: #faf9fd;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+* { box-sizing: border-box; }
+
+html { min-width: 320px; scroll-behavior: smooth; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #faf9fd;
+}
+
+#root { min-height: 100vh; width: 100%; }
+
+button, input, select, textarea { font: inherit; }
+
+button, a, select { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible {
+  outline: 3px solid #b8a5ff;
+  outline-offset: 3px;
+}
+
+a { text-underline-offset: 3px; }
+
+.clearsight-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 14% 12%, rgba(196, 181, 253, .22), transparent 34%),
+    radial-gradient(ellipse at 88% 86%, rgba(167, 139, 250, .2), transparent 32%),
+    linear-gradient(135deg, #4c278f 0%, #7045c4 48%, #30205f 100%);
+}
+
+.clearsight-welcome-panel {
+  position: relative;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, .13);
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: 0 28px 80px rgba(24, 10, 58, .28);
+  backdrop-filter: blur(22px);
+}
+
+.clearsight-welcome-panel h1 {
+  letter-spacing: -.045em;
+  line-height: 1.08;
+}
+
+.clearsight-welcome-panel button {
+  min-height: 3.5rem;
+  box-shadow: 0 10px 28px rgba(31, 16, 73, .2);
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.clearsight-welcome-panel button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(31, 16, 73, .28);
+}
+
+.clearsight-form-panel {
+  border: 1px solid #eee9f8;
+  border-radius: 1.75rem;
+  box-shadow: 0 24px 70px rgba(35, 19, 72, .18);
+}
+
+.clearsight-form-panel h2 {
+  letter-spacing: -.035em;
+  line-height: 1.15;
+}
+
+.clearsight-form-panel label {
+  color: #342b49;
+  letter-spacing: -.01em;
+}
+
+.clearsight-form-panel select {
+  min-height: 3.25rem;
+  border-color: #e5dff0;
+  background-color: #fff;
+  color: #302742;
+}
+
+.clearsight-form-panel select:hover { border-color: #a78bfa; }
+
+.clearsight-form-panel select:focus {
+  border-color: #7650c9;
+  box-shadow: 0 0 0 4px rgba(118, 80, 201, .13);
+}
+
+.clearsight-form-panel button,
+.clearsight-results-header button {
+  min-height: 3rem;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+.clearsight-form-panel button[type="submit"] {
+  box-shadow: 0 8px 20px rgba(109, 65, 190, .2);
+}
+
+.clearsight-results-header {
+  box-shadow: 0 8px 28px rgba(47, 27, 87, .12);
+}
+
+@media (max-width: 640px) {
+  .clearsight-shell { padding: 1rem; }
+  .clearsight-welcome-panel { padding: 2rem 1.5rem; border-radius: 1.5rem; }
+  .clearsight-form-panel { padding: 1.5rem; border-radius: 1.5rem; }
+  .clearsight-results-header h1 { font-size: 1.75rem; line-height: 1.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
 
-.animate-shimmer {
-  animation: shimmer 2s infinite;
+/* Existing image shimmer remains available for generated frame previews. */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
+.animate-shimmer { animation: shimmer 2s infinite; }
