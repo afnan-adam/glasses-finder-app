@@ -446,18 +446,15 @@ const GlassesFinder = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">Your Glasses Options</h1>
-                {eligibilityData && (
+                {formData.budget && (
                   <p className="text-purple-100 mb-1">
-                    Tier: {eligibilityData.tierName} | Budget: ${eligibilityData.budgetRange[0]}-${eligibilityData.budgetRange[1]}
-                    {formData.budget && (
-                      <span className="ml-2">| Your Budget: {budgetRanges.find(b => b.value === formData.budget)?.label}</span>
-                    )}
+                    Your selected budget: {budgetRanges.find(b => b.value === formData.budget)?.label}
                   </p>
                 )}
                 <p className="text-purple-100">Found {filteredGlasses.length} glasses matching your criteria</p>
-                {recommendations && (
-                  <p className="text-purple-200 text-sm mt-2">{recommendations.priorityMessage}</p>
-                )}
+                <p className="text-purple-200 text-sm mt-2">
+                  Coverage is not determined by income alone. Confirm benefits with your insurer or Medicaid plan.
+                </p>
               </div>
               <button
                 onClick={() => setCurrentStep('form')}
