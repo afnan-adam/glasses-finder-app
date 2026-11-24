@@ -327,7 +327,7 @@ const GlassesFinder = () => {
                     {resource.email && <a className="font-medium text-purple-700 hover:underline" href={'mailto:' + resource.email}>{resource.email}</a>}
                     <a className="font-medium text-purple-700 hover:underline" href={resource.website} target="_blank" rel="noopener noreferrer">{t('Official program details', 'Detalles oficiales del programa')} ↗</a>
                   </div>
-                  <p className="mt-5 text-xs text-slate-400">{t('{t('Information checked November 24, 2026', 'Información verificada el 24 de noviembre de 2026')}', 'Información verificada el 24 de noviembre de 2026')}</p>
+                  <p className="mt-5 text-xs text-slate-400">{t('Information checked November 24, 2026', 'Información verificada el 24 de noviembre de 2026')}</p>
                 </article>
               );
             })()}
