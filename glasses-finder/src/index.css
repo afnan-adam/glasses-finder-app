@@ -945,3 +945,69 @@ a { text-underline-offset: 3px; }
   .clearsight-editorial-pathway,
   .clearsight-editorial-pathway-arrow { transition: none; }
 }
+
+
+/* Deep-purple editorial landing page treatment */
+.clearsight-editorial {
+  color: #f8f4ff;
+  background:
+    radial-gradient(ellipse at 78% 8%, rgba(166, 117, 224, .22), transparent 34rem),
+    linear-gradient(145deg, #28103f 0%, #3d1763 48%, #51227e 100%);
+}
+.clearsight-editorial .clearsight-nav {
+  border-bottom-color: rgba(238, 224, 255, .2);
+}
+.clearsight-editorial .clearsight-brand,
+.clearsight-editorial .clearsight-brand strong {
+  color: #fff;
+}
+.clearsight-editorial .clearsight-brand-mark {
+  color: #45206b;
+  background: #f0e5ff;
+}
+.clearsight-editorial .clearsight-location {
+  color: #e1d1f3;
+}
+.clearsight-editorial .clearsight-language-switch {
+  border-color: rgba(255,255,255,.24);
+  background: rgba(255,255,255,.96);
+}
+.clearsight-editorial-kicker,
+.clearsight-section-intro > span {
+  color: #d9b9ff;
+}
+.clearsight-editorial-copy h1,
+.clearsight-section-intro h2 {
+  color: #fffaff;
+}
+.clearsight-editorial-copy h1 em {
+  color: #d8b7ff;
+}
+.clearsight-editorial-copy > p,
+.clearsight-editorial-note,
+.clearsight-section-intro p {
+  color: #e3d7ef;
+}
+.clearsight-editorial-rule {
+  background: #c89bea;
+}
+.clearsight-editorial-photo {
+  background: #e9ddf3;
+}
+.clearsight-editorial-photo img {
+  mix-blend-mode: multiply;
+}
+.clearsight-editorial-pathways,
+.clearsight-editorial-how {
+  border-top-color: rgba(238, 224, 255, .22);
+}
+.clearsight-editorial-how > div {
+  color: #e3d7ef;
+}
+.clearsight-editorial-how span {
+  color: #d5b0f4;
+}
+.clearsight-editorial .clearsight-landing-footer {
+  border-top-color: rgba(238, 224, 255, .22);
+  color: #d8c9e8;
+}
