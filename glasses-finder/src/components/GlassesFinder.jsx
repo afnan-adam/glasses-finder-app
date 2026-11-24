@@ -5,6 +5,9 @@ import GlassesImageCard from './ui/GlassesImageCard';
 
 const GlassesFinder = () => {
   const [currentStep, setCurrentStep] = useState('welcome');
+  const [language, setLanguage] = useState('en');
+  const isSpanish = language === 'es';
+  const t = (english, spanish) => isSpanish ? spanish : english;
   const [formData, setFormData] = useState({
     householdSize: '',
     income: '',
@@ -250,23 +253,20 @@ const GlassesFinder = () => {
           <span className="clearsight-brand-mark"><Eye size={21} /></span>
           <span>ClearSight <strong>D.C.</strong></span>
         </a>
-        <span className="clearsight-location"><MapPin size={15} /> Washington, D.C.</span>
+        <div className="clearsight-nav-actions"><span className="clearsight-location"><MapPin size={15} /> Washington, D.C.</span><div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div></div>
       </header>
 
       <section className="clearsight-hero" id="home">
         <div className="clearsight-hero-copy">
-          <span className="clearsight-eyebrow">A clearer path to affordable eyewear</span>
-          <h1>Good vision should fit your <em>life</em> and your budget.</h1>
-          <p className="clearsight-hero-description">
-            Explore eyewear options and learn about vision assistance resources
-            in the D.C. area. Start with a few details about your household.
-          </p>
+          <span className="clearsight-eyebrow">{t('A clearer path to affordable eyewear', 'Un camino más sencillo hacia lentes asequibles')}</span>
+          <h1>{isSpanish ? <>Ver bien debe ajustarse a tu <em>vida</em> y a tu presupuesto.</> : <>Good vision should fit your <em>life</em> and your budget.</>}</h1>
+          <p className="clearsight-hero-description">{t('Explore eyewear options and learn about vision assistance resources in the D.C. area.', 'Explora opciones de lentes y recursos de asistencia visual en Washington, D.C.')}</p>
           <div className="clearsight-hero-actions">
             <button
               onClick={() => setCurrentStep('form')}
               className="clearsight-primary-cta"
             >
-              Explore my options <span aria-hidden="true">→</span>
+              {t('Explore adult options', 'Explorar opciones para adultos')} <span aria-hidden="true">→</span>
             </button>
             <span className="clearsight-time-note">A short, guided questionnaire</span>
           </div>
@@ -277,6 +277,7 @@ const GlassesFinder = () => {
           </div>
         </div>
 
+        <div className="clearsight-pathway-card"><span className="clearsight-card-kicker">{t('CHOOSE A PATH', 'ELIGE UNA OPCIÓN')}</span><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('form')}><span className="clearsight-pathway-icon"><Eye size={22}/></span><span><strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong><small>{t('Explore eyewear, insurance and assistance.', 'Explora lentes, seguros y programas de ayuda.')}</small></span><span className="clearsight-pathway-arrow">→</span></button><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('students')}><span className="clearsight-pathway-icon"><Users size={22}/></span><span><strong>{t('K–12 student vision', 'Cuidado visual para estudiantes K–12')}</strong><small>{t('Find free eye exams and glasses for children.', 'Encuentra exámenes de la vista y lentes gratuitos para niños.')}</small></span><span className="clearsight-pathway-arrow">→</span></button></div>
         <aside className="clearsight-how-card" aria-label="How ClearSight works">
           <div className="clearsight-card-topline">
             <span className="clearsight-card-icon"><Eye size={22} /></span>
