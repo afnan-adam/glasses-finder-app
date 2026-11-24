@@ -414,12 +414,7 @@ const GlassesFinder = () => {
                 <option value="no">{t('No', 'No')}</option>
               </select>
               <small>{t('This helps us point you toward child-focused vision resources when relevant.', 'Esto nos ayuda a mostrarte recursos de salud visual para niños cuando corresponda.')}</small>
-              {formData.hasChildren === 'yes' && (
-                <div className="mt-3 rounded-xl border border-purple-200 bg-purple-50 p-4">
-                  <p className="text-sm text-slate-700">{t('Looking for vision support for a child in grades K–12? Explore programs for families separately.', '¿Buscas apoyo visual para un niño o niña en los grados K–12? Explora por separado los programas para familias.')}</p>
-                  <button type="button" className="mt-3 text-sm font-semibold text-purple-800 underline underline-offset-4" onClick={() => setCurrentStep('students')}>{t('View student resources', 'Ver recursos para estudiantes')} →</button>
-                </div>
-              )}
+
             </div>
 
             <div className="clearsight-field">
