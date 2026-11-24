@@ -438,7 +438,45 @@ const GlassesFinder = () => {
 
   const ResultsScreen = () => {
     const eligibility = getEligibilityMessage();
-    
+    const budgetGuidance = {
+      under50: {
+        title: 'Looking to spend under $50? Start here.',
+        body: 'The Prevention of Blindness Society’s Affordable Eyeglasses Clinic offers basic prescription glasses starting at $40, including frames. You need a current prescription dated within the last year and an appointment. Additional lens options cost extra.',
+        action: 'Check the $40 clinic option before shopping',
+        note: 'Accepted DC, Maryland, and Virginia Medicaid plans may cover eligible glasses at no cost. The clinic does not accept Medicare or other insurance.'
+      },
+      '50-75': {
+        title: 'Working with a $50–$75 budget? Compare low-cost options first.',
+        body: 'A local nonprofit clinic lists basic prescription glasses from $40, frames included. That may leave more room in your budget than many retail frames. Ask about lens options and the full price before ordering.',
+        action: 'Explore the affordable eyeglasses clinic',
+        note: 'A prescription less than one year old and an appointment are required. Accepted Medicaid plans may cover eligible glasses at no cost.'
+      },
+      '75-100': {
+        title: 'With $75–$100, compare the total cost—not just the frame.',
+        body: 'Some retail frames in this catalog start at $95 with basic single-vision lenses. The local affordable clinic starts at $40 including frames. Compare lens options, prescription needs, and final checkout totals.',
+        action: 'Compare the $40 clinic with retail options',
+        note: 'Retail upgrades may increase the final price. The clinic requires a current prescription and an appointment.'
+      },
+      '100-150': {
+        title: 'With $100–$150, compare lens inclusions and benefits.',
+        body: 'This catalog includes retail starting prices around $95 and $145. Before choosing, check whether your budget needs to cover lens upgrades, coatings, shipping, or an eye exam. You may also qualify for a lower-cost clinic option.',
+        action: 'Review affordable clinic and insurance options',
+        note: 'Ask your vision plan about frame allowances, copays, network providers, and prior authorization.'
+      },
+      '150-200': {
+        title: 'With $150–$200, check what your budget includes.',
+        body: 'You may have more retail frame choices, but lens upgrades can change the final total. Compare the complete prescription-glasses price and check whether your vision plan offers an allowance or in-network savings.',
+        action: 'Review your plan benefits before checkout',
+        note: 'If cost is still a concern, the local clinic lists basic glasses from $40, frames included.'
+      },
+      '200plus': {
+        title: 'With a $200+ budget, compare coverage and lens upgrades.',
+        body: 'At this range, compare frame quality, lens materials, coatings, progressive options, and warranty terms. Check your insurance allowance before paying out of pocket; a more expensive frame does not necessarily mean better vision coverage.',
+        action: 'Check your vision plan and compare total prices',
+        note: 'The local affordable clinic remains an option for basic glasses starting at $40, subject to its requirements.'
+      }
+    }[formData.budget];
+
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="bg-gradient-to-r from-violet-700 to-purple-600 text-white py-8 clearsight-results-header">
@@ -511,6 +549,25 @@ const GlassesFinder = () => {
               )}
             </div>
           </div>
+        )}
+
+        {budgetGuidance && (
+          <section className="max-w-6xl mx-auto px-4 pt-6" aria-labelledby="budget-guidance-heading">
+            <div className="rounded-2xl border border-purple-200 bg-purple-50 p-6 md:p-7">
+              <p className="text-xs font-semibold uppercase tracking-wider text-purple-700">Your budget guide</p>
+              <h2 id="budget-guidance-heading" className="mt-2 text-xl font-bold text-slate-900 md:text-2xl">{budgetGuidance.title}</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">{budgetGuidance.body}</p>
+              <a
+                href="https://www.youreyes.org/affordable-eyeglasses-clinic/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center rounded-lg bg-purple-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-800"
+              >
+                {budgetGuidance.action} ↗
+              </a>
+              <p className="mt-3 max-w-3xl text-xs leading-relaxed text-slate-600">{budgetGuidance.note}</p>
+            </div>
+          </section>
         )}
 
         {eligibilityData?.resources?.length > 0 && (
