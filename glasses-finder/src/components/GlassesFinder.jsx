@@ -283,7 +283,7 @@ const GlassesFinder = () => {
             <span className="clearsight-card-icon"><Eye size={22} /></span>
             <span className="clearsight-card-kicker">YOUR NEXT STEPS</span>
           </div>
-          <h2>Finding a place to start can be easier.</h2>
+          <h2>{t('Finding a place to start can be easier.', 'Encontrar por dónde empezar puede ser más fácil.')}</h2>
           <p className="clearsight-card-intro">ClearSight helps you explore three things:</p>
           <ol className="clearsight-steps">
             <li>
@@ -356,9 +356,10 @@ const GlassesFinder = () => {
           <span className="clearsight-brand-mark"><Eye size={21} /></span>
           <span>ClearSight <strong>D.C.</strong></span>
         </a>
-        <button type="button" className="clearsight-back-link" onClick={() => setCurrentStep('welcome')}>
-          ← Back to overview
-        </button>
+        <div className="clearsight-form-nav-actions">
+          <div className="clearsight-language-switch" role="group" aria-label="Language / Idioma"><button type="button" onClick={() => setLanguage('en')} aria-pressed={!isSpanish}>English</button><span>|</span><button type="button" onClick={() => setLanguage('es')} aria-pressed={isSpanish}>Español</button></div>
+          <button type="button" className="clearsight-back-link" onClick={() => setCurrentStep('welcome')}>← {t('Back to overview', 'Volver al inicio')}</button>
+        </div>
       </header>
 
       <section className="clearsight-form-layout">
