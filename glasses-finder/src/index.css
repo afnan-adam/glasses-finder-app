@@ -137,3 +137,233 @@ a { text-underline-offset: 3px; }
   100% { transform: translateX(100%); }
 }
 .animate-shimmer { animation: shimmer 2s infinite; }
+
+
+/* ClearSight landing-page layout */
+.clearsight-landing {
+  min-height: 100vh;
+  color: #281d3e;
+  background:
+    radial-gradient(ellipse at 82% 12%, rgba(210, 195, 255, .34), transparent 30rem),
+    linear-gradient(180deg, #fbf9ff 0%, #f5f1fc 100%);
+}
+.clearsight-nav {
+  width: min(1160px, calc(100% - 3rem));
+  min-height: 82px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e9e1f5;
+}
+.clearsight-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  color: #39216d;
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 750;
+  letter-spacing: -.04em;
+}
+.clearsight-brand strong { color: #7954c4; }
+.clearsight-brand-mark {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  color: white;
+  border-radius: .8rem;
+  background: linear-gradient(145deg, #7954c4, #4e2c91);
+  box-shadow: 0 6px 16px rgba(85, 49, 148, .2);
+}
+.clearsight-location {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: #6d5b83;
+  font-size: .9rem;
+  font-weight: 600;
+}
+.clearsight-hero {
+  width: min(1160px, calc(100% - 3rem));
+  min-height: 650px;
+  margin: 0 auto;
+  padding: 5.5rem 0 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(330px, .85fr);
+  align-items: center;
+  gap: clamp(3rem, 7vw, 7rem);
+}
+.clearsight-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: .48rem .8rem;
+  border: 1px solid #e2d6f5;
+  border-radius: 999px;
+  background: #f2ebfc;
+  color: #6945a8;
+  font-size: .76rem;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.clearsight-hero-copy h1 {
+  max-width: 660px;
+  margin: 1.35rem 0 1.25rem;
+  color: #2b1d45;
+  font-size: clamp(3.1rem, 5.6vw, 5.1rem);
+  font-weight: 760;
+  letter-spacing: -.065em;
+  line-height: .99;
+}
+.clearsight-hero-copy h1 em {
+  color: #7954c4;
+  font-style: normal;
+}
+.clearsight-hero-description {
+  max-width: 570px;
+  color: #6b6078;
+  font-size: 1.12rem;
+  line-height: 1.75;
+}
+.clearsight-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+  margin-top: 2rem;
+}
+.clearsight-primary-cta {
+  min-height: 3.55rem;
+  padding: 0 1.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.3rem;
+  border: 0;
+  border-radius: .9rem;
+  background: #6842ad;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 12px 26px rgba(91, 55, 157, .22);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.clearsight-primary-cta:hover {
+  transform: translateY(-2px);
+  background: #55328f;
+  box-shadow: 0 16px 30px rgba(91, 55, 157, .28);
+}
+.clearsight-primary-cta span { font-size: 1.25rem; }
+.clearsight-time-note { color: #82768f; font-size: .86rem; }
+.clearsight-value-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.5rem;
+  margin-top: 3.2rem;
+}
+.clearsight-value-points div {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #625474;
+  font-size: .82rem;
+  font-weight: 600;
+}
+.clearsight-value-points svg { color: #7954c4; }
+.clearsight-how-card {
+  padding: 2rem;
+  border: 1px solid rgba(222, 211, 240, .9);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 26px 75px rgba(56, 35, 91, .1);
+}
+.clearsight-card-topline {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.clearsight-card-icon {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border-radius: .9rem;
+  background: #f0e9fb;
+  color: #6842ad;
+}
+.clearsight-card-kicker {
+  color: #856ca7;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.clearsight-how-card h2 {
+  margin: 1.4rem 0 .5rem;
+  color: #33224e;
+  font-size: 1.7rem;
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+.clearsight-card-intro { color: #776b84; font-size: .92rem; }
+.clearsight-steps {
+  display: grid;
+  gap: 1.35rem;
+  margin: 1.7rem 0;
+  padding: 0;
+  list-style: none;
+}
+.clearsight-steps li {
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  gap: .8rem;
+  align-items: start;
+}
+.clearsight-step-number {
+  color: #9678c6;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.clearsight-steps strong {
+  display: block;
+  color: #3b2b50;
+  font-size: .94rem;
+}
+.clearsight-steps small {
+  display: block;
+  margin-top: .25rem;
+  color: #81758d;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.clearsight-disclaimer {
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid #eee8f5;
+  color: #8a7e94;
+  font-size: .75rem;
+  line-height: 1.55;
+}
+.clearsight-landing-footer {
+  width: min(1160px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 1.3rem 0 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #e9e1f5;
+  color: #887d93;
+  font-size: .78rem;
+}
+.clearsight-landing-footer span:first-child { color: #61418f; font-weight: 750; }
+@media (max-width: 760px) {
+  .clearsight-nav, .clearsight-hero, .clearsight-landing-footer { width: min(100% - 2rem, 560px); }
+  .clearsight-nav { min-height: 70px; }
+  .clearsight-hero { min-height: auto; padding: 4rem 0 3.5rem; grid-template-columns: 1fr; gap: 2.5rem; }
+  .clearsight-hero-copy h1 { font-size: clamp(2.8rem, 12vw, 4.2rem); }
+  .clearsight-value-points { margin-top: 2.2rem; gap: .9rem 1rem; }
+  .clearsight-how-card { padding: 1.5rem; }
+  .clearsight-landing-footer { flex-direction: column; gap: .35rem; }
+}
