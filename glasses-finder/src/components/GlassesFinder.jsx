@@ -10,6 +10,7 @@ const GlassesFinder = () => {
   const t = (english, spanish) => isSpanish ? spanish : english;
   const [formData, setFormData] = useState({
     householdSize: '',
+    hasChildren: '',
     income: '',
     zipCode: '',
     budget: ''
@@ -377,6 +378,27 @@ const GlassesFinder = () => {
                 ))}
               </select>
               <small>{t('Include everyone in your household.', 'Incluye a todas las personas de tu hogar.')}</small>
+            </div>
+
+            <div className="clearsight-field">
+              <label htmlFor="has-children"><Users size={17} /> {t('Do you have children in your household?', '¿Hay niños en tu hogar?')}</label>
+              <select
+                id="has-children"
+                value={formData.hasChildren}
+                onChange={(e) => setFormData({...formData, hasChildren: e.target.value})}
+                required
+              >
+                <option value="">{t('Select an answer', 'Selecciona una respuesta')}</option>
+                <option value="yes">{t('Yes', 'Sí')}</option>
+                <option value="no">{t('No', 'No')}</option>
+              </select>
+              <small>{t('This helps us point you toward child-focused vision resources when relevant.', 'Esto nos ayuda a mostrarte recursos de salud visual para niños cuando corresponda.')}</small>
+              {formData.hasChildren === 'yes' && (
+                <div className="mt-3 rounded-xl border border-purple-200 bg-purple-50 p-4">
+                  <p className="text-sm text-slate-700">{t('Looking for vision support for a child in grades K–12? Explore programs for families separately.', '¿Buscas apoyo visual para un niño o niña en los grados K–12? Explora por separado los programas para familias.')}</p>
+                  <button type="button" className="mt-3 text-sm font-semibold text-purple-800 underline underline-offset-4" onClick={() => setCurrentStep('students')}>{t('View student resources', 'Ver recursos para estudiantes')} →</button>
+                </div>
+              )}
             </div>
 
             <div className="clearsight-field">
