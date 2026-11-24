@@ -278,31 +278,6 @@ const GlassesFinder = () => {
         </div>
 
         <div className="clearsight-pathway-card"><span className="clearsight-card-kicker">{t('CHOOSE A PATH', 'ELIGE UNA OPCIÓN')}</span><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('form')}><span className="clearsight-pathway-icon"><Eye size={22}/></span><span><strong>{t('Adult vision care', 'Cuidado visual para adultos')}</strong><small>{t('Explore eyewear, insurance and assistance.', 'Explora lentes, seguros y programas de ayuda.')}</small></span><span className="clearsight-pathway-arrow">→</span></button><button type="button" className="clearsight-pathway-button" onClick={() => setCurrentStep('students')}><span className="clearsight-pathway-icon"><Users size={22}/></span><span><strong>{t('K–12 student vision', 'Cuidado visual para estudiantes K–12')}</strong><small>{t('Find free eye exams and glasses for children.', 'Encuentra exámenes de la vista y lentes gratuitos para niños.')}</small></span><span className="clearsight-pathway-arrow">→</span></button></div>
-        <aside className="clearsight-how-card" aria-label="How ClearSight works">
-          <div className="clearsight-card-topline">
-            <span className="clearsight-card-icon"><Eye size={22} /></span>
-            <span className="clearsight-card-kicker">YOUR NEXT STEPS</span>
-          </div>
-          <h2>{t('Finding a place to start can be easier.', 'Encontrar por dónde empezar puede ser más fácil.')}</h2>
-          <p className="clearsight-card-intro">ClearSight helps you explore three things:</p>
-          <ol className="clearsight-steps">
-            <li>
-              <span className="clearsight-step-number">01</span>
-              <span><strong>Share a little context</strong><small>Household size, income range, location and budget.</small></span>
-            </li>
-            <li>
-              <span className="clearsight-step-number">02</span>
-              <span><strong>Review possible resources</strong><small>See assistance information to investigate further.</small></span>
-            </li>
-            <li>
-              <span className="clearsight-step-number">03</span>
-              <span><strong>Explore eyewear options</strong><small>Compare frames and find options to research.</small></span>
-            </li>
-          </ol>
-          <p className="clearsight-disclaimer">
-            Information is a starting point, not a guarantee of program eligibility or coverage.
-          </p>
-        </aside>
       </section>
 
       <footer className="clearsight-landing-footer">
@@ -376,13 +351,13 @@ const GlassesFinder = () => {
           <small>{t('Four questions · Your answers shape the results', 'Cuatro preguntas · Tus respuestas orientan los resultados')}</small>
           <div className="clearsight-privacy-note">
             <Info size={17} />
-            <span>Your answers are used to shape the results shown in this session.</span>
+            <span>{t('Your answers are used to shape the results shown in this session.', 'Tus respuestas se utilizan para personalizar los resultados de esta sesión.')}</span>
           </div>
         </div>
 
         <div className="clearsight-form-card">
           <div className="clearsight-form-card-heading">
-            <span className="clearsight-form-step">01 — HOUSEHOLD</span>
+            <span className="clearsight-form-step">{t('01 — HOUSEHOLD', '01 — HOGAR')}</span>
             <h2>{t('Tell us about your household', 'Cuéntanos sobre tu hogar')}</h2>
             <p>{t('These details help us estimate which assistance resources may be relevant.', 'Estos datos nos ayudan a identificar recursos de asistencia que podrían ser relevantes.')}</p>
           </div>
@@ -422,7 +397,7 @@ const GlassesFinder = () => {
 
             <div className="clearsight-form-divider"></div>
             <div className="clearsight-form-card-heading clearsight-form-secondary-heading">
-              <span className="clearsight-form-step">02 — LOCATION & BUDGET</span>
+              <span className="clearsight-form-step">{t('02 — LOCATION & BUDGET', '02 — UBICACIÓN Y PRESUPUESTO')}</span>
               <h2>{t('What are you looking for?', '¿Qué estás buscando?')}</h2>
               <p>We'll use these details to tailor the local resources and frames you see.</p>
             </div>
@@ -438,7 +413,7 @@ const GlassesFinder = () => {
                 <option value="">{t('Choose your ZIP code', 'Selecciona tu código postal')}</option>
                 {dcZipCodes.map(zip => <option key={zip} value={zip}>{zip}</option>)}
               </select>
-              <small>Choose the D.C. ZIP code where you live.</small>
+              <small>{t('Choose the D.C. ZIP code where you live.', 'Selecciona el código postal de D.C. donde vives.')}</small>
             </div>
 
             <div className="clearsight-field">
@@ -454,12 +429,12 @@ const GlassesFinder = () => {
                   <option key={index} value={range.value}>{range.label}</option>
                 ))}
               </select>
-              <small>What would you feel comfortable spending on frames?</small>
+              <small>{t('What would you feel comfortable spending on frames?', '¿Cuánto te sentirías cómodo gastando en armazones?')}</small>
             </div>
 
             <div className="clearsight-form-actions">
               <button type="button" className="clearsight-secondary-button" onClick={() => setCurrentStep('welcome')}>
-                Back
+                {t('Back', 'Volver')}
               </button>
               <button type="submit" className="clearsight-primary-cta">
                 {t('See my options', 'Ver mis opciones')} <span aria-hidden="true">→</span>
@@ -467,7 +442,7 @@ const GlassesFinder = () => {
             </div>
           </form>
           <p className="clearsight-form-footnote">
-            ClearSight provides informational guidance. Programs and coverage must be confirmed with the provider.
+            {t('ClearSight provides informational guidance. Programs and coverage must be confirmed with the provider.', 'ClearSight ofrece orientación informativa. Debes confirmar los programas y la cobertura directamente con cada proveedor.')}
           </p>
         </div>
       </section>
