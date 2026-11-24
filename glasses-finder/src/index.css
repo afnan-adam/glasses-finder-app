@@ -518,3 +518,19 @@ a { text-underline-offset: 3px; }
   .clearsight-form-actions { flex-direction: column-reverse; }
   .clearsight-form-actions button { width: 100%; }
 }
+
+
+.clearsight-alternatives-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  margin: 0 0 1.4rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid #e4d8f3;
+  border-radius: .9rem;
+  background: #f7f2fd;
+  color: #5e477d;
+}
+.clearsight-alternatives-notice svg { color: #7954b3; margin-top: .1rem; }
+.clearsight-alternatives-notice strong { display: block; font-size: .9rem; }
+.clearsight-alternatives-notice p { margin: .25rem 0 0; color: #78688b; font-size: .82rem; line-height: 1.5; }
