@@ -101,7 +101,7 @@ const GlassesFinder = () => {
 
   const getFrameImage = (style) => {
     const frameImages = {
-      t('Round', 'Redondo'): (
+      [t('Round', 'Redondo')]: (
         <svg viewBox="0 0 200 80" className="w-20 h-12">
           <circle cx="60" cy="40" r="25" fill="none" stroke="currentColor" strokeWidth="3"/>
           <circle cx="140" cy="40" r="25" fill="none" stroke="currentColor" strokeWidth="3"/>
@@ -110,7 +110,7 @@ const GlassesFinder = () => {
           <line x1="165" y1="40" x2="185" y2="45" stroke="currentColor" strokeWidth="2"/>
         </svg>
       ),
-      t('Square', 'Cuadrado'): (
+      [t('Square', 'Cuadrado')]: (
         <svg viewBox="0 0 200 80" className="w-20 h-12">
           <rect x="35" y="20" width="50" height="40" fill="none" stroke="currentColor" strokeWidth="3" rx="3"/>
           <rect x="115" y="20" width="50" height="40" fill="none" stroke="currentColor" strokeWidth="3" rx="3"/>
@@ -119,7 +119,7 @@ const GlassesFinder = () => {
           <line x1="165" y1="40" x2="185" y2="45" stroke="currentColor" strokeWidth="2"/>
         </svg>
       ),
-      t('Rectangular', 'Rectangular'): (
+      [t('Rectangular', 'Rectangular')]: (
         <svg viewBox="0 0 200 80" className="w-20 h-12">
           <rect x="30" y="25" width="60" height="30" fill="none" stroke="currentColor" strokeWidth="3" rx="5"/>
           <rect x="110" y="25" width="60" height="30" fill="none" stroke="currentColor" strokeWidth="3" rx="5"/>
@@ -128,7 +128,7 @@ const GlassesFinder = () => {
           <line x1="170" y1="40" x2="190" y2="45" stroke="currentColor" strokeWidth="2"/>
         </svg>
       ),
-      t('Aviator', 'Aviador'): (
+      [t('Aviator', 'Aviador')]: (
         <svg viewBox="0 0 200 80" className="w-20 h-12">
           <path d="M 35 50 Q 60 15 85 50" fill="none" stroke="currentColor" strokeWidth="3"/>
           <path d="M 115 50 Q 140 15 165 50" fill="none" stroke="currentColor" strokeWidth="3"/>
@@ -146,7 +146,7 @@ const GlassesFinder = () => {
           <line x1="170" y1="42" x2="190" y2="47" stroke="currentColor" strokeWidth="2"/>
         </svg>
       ),
-      t('Classic', 'Clásico'): (
+      [t('Classic', 'Clásico')]: (
         <svg viewBox="0 0 200 80" className="w-20 h-12">
           <ellipse cx="60" cy="40" rx="30" ry="20" fill="none" stroke="currentColor" strokeWidth="3"/>
           <ellipse cx="140" cy="40" rx="30" ry="20" fill="none" stroke="currentColor" strokeWidth="3"/>
