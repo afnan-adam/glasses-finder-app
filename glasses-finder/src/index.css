@@ -1689,3 +1689,19 @@ a { text-underline-offset: 3px; }
     margin-right: auto !important;
   }
 }
+
+
+/* Brand mark: a dark-plum eye on a soft, dimensional lavender gradient. */
+.clearsight-landing.clearsight-editorial .clearsight-brand-mark {
+  display: grid;
+  place-items: center;
+  color: #35145b !important;
+  background: linear-gradient(135deg, #f2eaff 0%, #e5d4f5 52%, #d6c0ec 100%) !important;
+  border: 1px solid rgba(104,69,138,.14);
+  border-radius: .78rem;
+  box-shadow: 0 4px 12px rgba(53,20,91,.09) !important;
+}
+.clearsight-landing.clearsight-editorial .clearsight-brand-mark svg {
+  color: #35145b !important;
+  stroke: #35145b !important;
+}
