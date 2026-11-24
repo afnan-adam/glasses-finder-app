@@ -313,9 +313,9 @@ const GlassesFinder = () => {
       </section>
 
       <section className="clearsight-editorial-how" aria-label={t('How ClearSight works', 'Cómo funciona ClearSight')}>
-        <div><span>01</span><strong>{t('Tell us what you need', 'Cuéntanos qué necesitas')}</div>
-        <div><span>02</span><strong>{t('Explore relevant options', 'Explora opciones relevantes')}</div>
-        <div><span>03</span><strong>{t('Confirm details with providers', 'Confirma los detalles con los proveedores')}</div>
+        <div><span>01</span><strong>{t('Tell us what you need', 'Cuéntanos qué necesitas')}</strong></div>
+        <div><span>02</span><strong>{t('Explore relevant options', 'Explora opciones relevantes')}</strong></div>
+        <div><span>03</span><strong>{t('Confirm details with providers', 'Confirma los detalles con los proveedores')}</strong></div>
       </section>
 
       <footer className="clearsight-landing-footer">
